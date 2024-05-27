@@ -8,10 +8,11 @@ int main()
 	//to declare an object in the class Expression
 	Expression MyExpression;
 
-	//run the method to get input
+	//get expression from user and output the result
 	MyExpression.getInput();
+	MyExpression.additionSubtraction();
 
-	std::cout << MyExpression.expression;
+	std::cout << MyExpression.result;
 
 	return 0;
 }
