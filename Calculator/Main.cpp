@@ -10,7 +10,8 @@ int main()
 
 	//get expression from user and output the result
 	MyExpression.getInput();
-	MyExpression.additionSubtraction();
+	MyExpression.multDiv();
+	MyExpression.addSub();
 
 	std::cout << MyExpression.result;
 
