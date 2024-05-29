@@ -3,17 +3,24 @@
 #include <string>
 #include <iostream>
 
+//others
+void Expression::reset()
+{
+	posOfFor = 0, stringSize = 0;
+	numOfOptr = 0, optrDone = 0;
+	optr_1 = 0, optr_2 = 0, optr_3 = 0;
+}
+
 void Expression::getInput()
 {
 	std::cout << "Enter an expression: ";
 	std::cin >> expression;
 }
 
-void Expression::storeExpression(int optr_bef, int optr_af, int stringSize, std::string num)
-{
-	//current position of the for-each loop
-	int posOfFor;
 
+//store
+void Expression::storeExpression(int optr_bef, int optr_af, std::string num)
+{
 	//string to store the new expression after evaluation
 	std::string expression_multDiv;
 	
@@ -30,11 +37,8 @@ void Expression::storeExpression(int optr_bef, int optr_af, int stringSize, std:
 	expression = expression_multDiv;
 }
 
-void Expression::storeExpressionNeg(int optr_bef, int optr_af, int stringSize)
+void Expression::storeExpressionNeg(int optr_bef, int optr_af)
 {
-	//current position of the for-each loop
-	int posOfFor;
-
 	//string to store the new expression after evaluation
 	std::string expression_neg;
 
@@ -58,9 +62,8 @@ void Expression::storeExpressionNeg(int optr_bef, int optr_af, int stringSize)
 	expression = expression_neg;
 }
 
-std::string Expression::storeString(int optr_bef, int optr_af, int stringSize)
+std::string Expression::storeString(int optr_bef, int optr_af)
 {
-	int posOfFor{};
 	std::string num;
 
 	for (posOfFor = optr_bef + 1; posOfFor < optr_af || posOfFor == stringSize; posOfFor++)
@@ -69,6 +72,13 @@ std::string Expression::storeString(int optr_bef, int optr_af, int stringSize)
 	return num;
 }
 
+double Expression::doubleConvert(std::string num)
+{
+	return double(std::stoi(num));
+}
+
+
+//calculate
 int Expression::calNumOfOptr(char optr)
 {
 	int posOfFor{}, numOfOptr{};
@@ -110,6 +120,8 @@ int Expression::calStringSize()
 	return stringSize;
 }
 
+
+//set and find
 int Expression::findPosOfOptr(int POForigin, int actAfterFor, int forMode, int ifmode)
 {
 	for (MyCondition.posOfFor = POForigin; MyCondition.checkForCondition(forMode); MyCondition.posOfFor += actAfterFor)
@@ -127,22 +139,51 @@ int Expression::findPosOfOptr(int POForigin, int actAfterFor, int forMode, int i
 	return 0;
 }
 
-void Expression::setMyCondition(int posOfFor, int stringSize)
+void Expression::setMyCondition()
 {
 	MyCondition.posOfFor = posOfFor;
 	MyCondition.stringSize = stringSize;
 }
 
+int Expression::setAndFind(int POForigin, int actAfterFor, int forMode, int ifmode)
+{
+	setMyCondition();
+	return findPosOfOptr(POForigin, actAfterFor, forMode, ifmode);
+}
+
+
+std::string Expression::processOptr(std::string num1, std::string num2)
+{
+	std::string numResult;
+
+	switch (expression[optr_1])
+	{
+	case '*':
+		numResult = std::to_string(doubleConvert(num1) * doubleConvert(num2));
+		break;
+	case '/':
+		numResult = std::to_string(doubleConvert(num1) / doubleConvert(num2));
+		break;
+	case '%':
+		numResult = std::to_string(std::stoi(num1) % std::stoi(num2));
+		break;
+	}
+
+	return numResult;
+}
+
+
+//evaluate
 void Expression::addSub()
 {
 	//formating the original expression by adding a sign
 	if (expression[0] != '+' && expression[0] != '-')
 		expression = '+' + expression;
 
-	//current position of the for-each loop
-	int posOfFor{}, stringSize{ calStringSize() };
+	reset();
+
+	stringSize = calStringSize();
 	int consOptrDone{}, numOfConsOptr{ calNumOfConsOptr() };
-	int optr_1{}, optr_2{}; //position of operators
 	int j{};
 
 	//formatting the original expression by processing the consecutive signs
@@ -151,11 +192,11 @@ void Expression::addSub()
 		if (j == 0)
 		{
 			optr_2 = optr_1;
-			optr_2 = setAndFind(posOfFor, stringSize, optr_1 + 1, 1, 1, 2);
+			optr_2 = setAndFind(optr_1 + 1, 1, 1, 2);
 
 			if (optr_1 == optr_2 - 1)
 			{
-				storeExpressionNeg(optr_1, optr_2, stringSize);
+				storeExpressionNeg(optr_1, optr_2);
 				consOptrDone++;
 			}
 
@@ -164,11 +205,11 @@ void Expression::addSub()
 		else if (j ==1)
 		{
 			optr_1 = optr_2;
-			optr_1 = setAndFind(posOfFor, stringSize, optr_2 + 1, 1, 1, 2);
+			optr_1 = setAndFind(optr_2 + 1, 1, 1, 2);
 
 			if (optr_2 == optr_1 - 1)
 			{
-				storeExpressionNeg(optr_2, optr_1, stringSize);
+				storeExpressionNeg(optr_2, optr_1);
 				consOptrDone++;
 			}
 
@@ -176,11 +217,9 @@ void Expression::addSub()
 		}
 	}
 
-	//number of operator done calculating, number of operator
-	int optrDone{}, numOfOptr{ calNumOfOptr('+') + calNumOfOptr('-') };
-
+	reset();
+	numOfOptr = calNumOfOptr('+') + calNumOfOptr('-');
 	stringSize = calStringSize();
-	optr_1 = 0, optr_2 = 0, posOfFor = 0;
 	j = 0;
 
 	//for loop to undergo addition & subtraction
@@ -191,18 +230,18 @@ void Expression::addSub()
 			optr_2 = optr_1;
 
 			//find the position of next operator
-			optr_2 = setAndFind(posOfFor, stringSize, optr_1 + 1, 1, 1, 2);
+			optr_2 = setAndFind(optr_1 + 1, 1, 1, 2);
 
 			//storing the current number as a string
-			std::string num{ storeString(optr_1, optr_2, stringSize) };
+			std::string num{ storeString(optr_1, optr_2) };
 			
 			//converting the number to integer and adding to result
 			if(!num.empty())
 			{
 				if (expression[optr_1] == '+')
-					result += std::stoi(num);
+					result += doubleConvert(num);
 				else if (expression[optr_1] == '-')
-					result -= std::stoi(num);
+					result -= doubleConvert(num);
 			}
 
 			j = 1;
@@ -210,16 +249,16 @@ void Expression::addSub()
 		else
 		{
 			optr_1 = optr_2;
-			optr_1 = setAndFind(posOfFor, stringSize, optr_2 + 1, 1, 1, 2);
+			optr_1 = setAndFind(optr_2 + 1, 1, 1, 2);
 
-			std::string num{ storeString(optr_2, optr_1, stringSize) };
+			std::string num{ storeString(optr_2, optr_1) };
 			
 			if (!num.empty())
 			{
 				if (expression[optr_2] == '+')
-					result += std::stoi(num);
+					result += doubleConvert(num);
 				else if (expression[optr_2] == '-')
-					result -= std::stoi(num);
+					result -= doubleConvert(num);
 			}
 
 			j = 0;
@@ -229,50 +268,41 @@ void Expression::addSub()
 
 void Expression::multDiv()
 {
-	//number of operator in the expression, current position of the for-each loop, operator done calculating
-	int numOfOptr{}, posOfFor{}, optrDone{};
+	reset();
 
 	//find the number of '*' and '/' in the expression
-	numOfOptr = calNumOfOptr('*') + calNumOfOptr('/') + calNumOfOptr('%');
+	numOfOptr = calNumOfOptr('*') + calNumOfOptr('/') + calNumOfOptr('%') + calNumOfOptr('^');
 
+	//skip function if neccessary
 	if (numOfOptr == 0)
 		return;
 
 	for (optrDone = 0; optrDone < numOfOptr; optrDone++)
 	{
-		int stringSize{ calStringSize() };
-
-		//position of operators
-		int optr_1{}, optr_2{}, optr_3{};
+		stringSize = calStringSize();
 
 		//find the position of operator
-		optr_1 = setAndFind(posOfFor, stringSize, 0, 1, 1, 3);
+		optr_1 = setAndFind(0, 1, 1, 3);
 
 		//find the position of operator before
-		optr_2 = setAndFind(posOfFor, stringSize, optr_1 - 1, -1, 2, 1);
+		optr_2 = setAndFind(optr_1 - 1, -1, 2, 1);
 
 		//detect whether it's at the beginning of the expression or not
 		if (optr_2 == 0)
 			optr_2 = -1;
 
 		//find the position of operator after
-		optr_3 = setAndFind(posOfFor, stringSize, optr_1 + 1, 1, 1, 1);
+		optr_3 = setAndFind(optr_1 + 1, 1, 1, 1);
 
 		//storing the numbers as string
 		std::string num1, num2;
-		num1 = storeString(optr_2, optr_1, stringSize);
-		num2 = storeString(optr_1, optr_3, stringSize);
+		num1 = storeString(optr_2, optr_1);
+		num2 = storeString(optr_1, optr_3);
 
 		//converting the numbers to integer and evaluate
 		//then storing the result as a string
-		std::string num3;
-		if (expression[optr_1] == '*')
-			num3 = std::to_string(std::stoi(num1) * std::stoi(num2));
-		else if (expression[optr_1] == '/')
-			num3 = std::to_string(std::stoi(num1) / std::stoi(num2));
-		else if (expression[optr_1] == '%')
-			num3 = std::to_string(std::stoi(num1) % std::stoi(num2));
-
-		storeExpression(optr_2, optr_3, stringSize, num3);
+		std::string num3{ processOptr(num1, num2) };
+		
+		storeExpression(optr_2, optr_3, num3);
 	}
 }
