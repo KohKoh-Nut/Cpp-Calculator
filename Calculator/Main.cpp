@@ -10,6 +10,7 @@ int main()
 
 	//get expression from user and output the result
 	MyExpression.getInput();
+	MyExpression.format();
 	MyExpression.multDiv();
 	MyExpression.addSub();
 

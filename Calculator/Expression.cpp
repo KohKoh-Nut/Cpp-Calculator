@@ -3,12 +3,17 @@
 #include <string>
 #include <iostream>
 
-//others
+/* others */
 void Expression::reset()
 {
 	posOfFor = 0, stringSize = 0;
 	numOfOptr = 0, optrDone = 0;
 	optr_1 = 0, optr_2 = 0, optr_3 = 0;
+}
+
+void Expression::resetPOF()
+{
+	posOfFor = 0;
 }
 
 void Expression::getInput()
@@ -17,8 +22,56 @@ void Expression::getInput()
 	std::cin >> expression;
 }
 
+void Expression::format()
+{
+	int consOptrMultDivDone{}, numOfConsOptrMultDiv{ calNumOfConsOptrMultDiv() };
+	stringSize = calStringSize();
 
-//store
+	for (consOptrMultDivDone; consOptrMultDivDone < numOfConsOptrMultDiv; consOptrMultDivDone++)
+	{
+		for (char i : expression)
+		{
+			if (MyCondition.checkOptrMultDiv(i) && MyCondition.checkOptrAddSub(expression[posOfFor + 1]))
+			{
+				optr_1 = posOfFor;
+				optr_2 = setAndFind(optr_1 - 1, -1, 2, 1);
+				//detect whether it's at the beginning of the expression or not
+				if (optr_2 == 0)
+					optr_2 = -1;
+
+				optr_3 = posOfFor + 1;
+
+				storeExpressionConsMultDiv(optr_2, optr_3);
+				break;
+			}
+
+			posOfFor++;
+		}
+	}
+
+	int consOptrDone{}, numOfConsOptr{ calNumOfConsOptr() };
+	int j{};
+
+	//formatting the original expression by processing the consecutive signs
+	for (consOptrDone; consOptrDone < numOfConsOptr;)
+	{
+		reset();
+		stringSize = calStringSize();
+		if (j == 0)
+		{
+			consOptrDone = formatAddSubFor(optr_1, optr_2, 0, consOptrDone);
+			j = 1;
+		}
+		else if (j == 1)
+		{
+			consOptrDone = formatAddSubFor(optr_2, optr_1, 1, consOptrDone);
+			j = 0;
+		}
+	}
+}
+
+
+/* store */
 void Expression::storeExpression(int optr_bef, int optr_af, std::string num)
 {
 	//string to store the new expression after evaluation
@@ -37,29 +90,50 @@ void Expression::storeExpression(int optr_bef, int optr_af, std::string num)
 	expression = expression_multDiv;
 }
 
-void Expression::storeExpressionNeg(int optr_bef, int optr_af)
+void Expression::storeExpressionCons(int optr_bef, int optr_af)
 {
 	//string to store the new expression after evaluation
-	std::string expression_neg;
+	std::string expression_cons;
 
 	//the process of storing the new expression
 	for (posOfFor = 0; posOfFor < optr_bef ; posOfFor++)
-		expression_neg += expression[posOfFor];
+		expression_cons += expression[posOfFor];
 
 	if(expression[optr_bef] == '-' && expression[optr_af] == '-')
-		expression_neg += '+';
+		expression_cons += '+';
 	else if (expression[optr_bef] == '+' && expression[optr_af] == '-')
-		expression_neg += '-';
+		expression_cons += '-';
 	else if (expression[optr_bef] == '-' && expression[optr_af] == '+')
-		expression_neg += '-';
+		expression_cons += '-';
 	else if (expression[optr_bef] == '+' && expression[optr_af] == '+')
-		expression_neg += '+';
+		expression_cons += '+';
 
 	for (posOfFor = optr_af + 1; posOfFor<= stringSize; posOfFor++)
-		expression_neg += expression[posOfFor];
+		expression_cons += expression[posOfFor];
 
 	//putting the new expression back to expression for further evaluation
-	expression = expression_neg;
+	expression = expression_cons;
+}
+
+void Expression::storeExpressionConsMultDiv(int optr_bef, int optr_af)
+{
+	//string to store the new expression after evaluation
+	std::string expression_consMultDiv;
+
+	//the process of storing the new expression
+	for (posOfFor = 0; posOfFor <= optr_bef; posOfFor++)
+		expression_consMultDiv += expression[posOfFor];
+
+	expression_consMultDiv += expression[optr_af];
+
+	for (; posOfFor < optr_af; posOfFor++)
+		expression_consMultDiv += expression[posOfFor];
+
+	for (posOfFor = optr_af + 1; posOfFor <= stringSize; posOfFor++)
+		expression_consMultDiv += expression[posOfFor];
+
+	//putting the new expression back to expression for further evaluation
+	expression = expression_consMultDiv;
 }
 
 std::string Expression::storeString(int optr_bef, int optr_af)
@@ -78,10 +152,11 @@ double Expression::doubleConvert(std::string num)
 }
 
 
-//calculate
+/* calculate */
 int Expression::calNumOfOptr(char optr)
 {
-	int posOfFor{}, numOfOptr{};
+	resetPOF();
+	int numOfOptr{};
 
 	for (char i : expression)
 	{
@@ -96,7 +171,8 @@ int Expression::calNumOfOptr(char optr)
 
 int Expression::calNumOfConsOptr()
 {
-	int posOfFor{}, numOfConsOptr{};
+	resetPOF();
+	int numOfConsOptr{};
 
 	for (char i : expression)
 	{
@@ -109,8 +185,25 @@ int Expression::calNumOfConsOptr()
 	return numOfConsOptr;
 }
 
+int Expression::calNumOfConsOptrMultDiv()
+{
+	resetPOF();
+	int numOfConsOptrMultDiv{};
+
+	for (char i : expression)
+	{
+		if (MyCondition.checkOptrMultDiv(i) && MyCondition.checkOptrAddSub(expression[posOfFor + 1]))
+			numOfConsOptrMultDiv++;
+
+		posOfFor++;
+	}
+
+	return numOfConsOptrMultDiv;
+}
+
 int Expression::calStringSize()
 {
+	resetPOF();
 	int stringSize{ -1 };
 
 	//find the size of the expression
@@ -121,9 +214,12 @@ int Expression::calStringSize()
 }
 
 
-//set and find
-int Expression::findPosOfOptr(int POForigin, int actAfterFor, int forMode, int ifmode)
+/* set and find */
+int Expression::setAndFind(int POForigin, int actAfterFor, int forMode, int ifmode)
 {
+	MyCondition.posOfFor = posOfFor;
+	MyCondition.stringSize = stringSize;
+
 	for (MyCondition.posOfFor = POForigin; MyCondition.checkForCondition(forMode); MyCondition.posOfFor += actAfterFor)
 	{
 		char i = expression[MyCondition.posOfFor];
@@ -138,19 +234,6 @@ int Expression::findPosOfOptr(int POForigin, int actAfterFor, int forMode, int i
 
 	return 0;
 }
-
-void Expression::setMyCondition()
-{
-	MyCondition.posOfFor = posOfFor;
-	MyCondition.stringSize = stringSize;
-}
-
-int Expression::setAndFind(int POForigin, int actAfterFor, int forMode, int ifmode)
-{
-	setMyCondition();
-	return findPosOfOptr(POForigin, actAfterFor, forMode, ifmode);
-}
-
 
 std::string Expression::processOptr(std::string num1, std::string num2)
 {
@@ -172,8 +255,82 @@ std::string Expression::processOptr(std::string num1, std::string num2)
 	return numResult;
 }
 
+void Expression::optrAddSub(int optr_1a, int optr_2a, int mode)
+{
+	optr_2a = optr_1a;
 
-//evaluate
+	//find the position of next operator
+	optr_1a = setAndFind(optr_2a, 1, 1, 2);
+	optr_2a = setAndFind(optr_1a + 1, 1, 1, 2);
+
+	if (mode == 0)
+	{
+		optr_1 = optr_1a;
+		optr_2 = optr_2a;
+	}
+	else if (mode == 1)
+	{
+		optr_2 = optr_1a;
+		optr_1 = optr_2a;
+	}
+}
+
+
+/* addSubForLoop*/
+void Expression::addSubFor(int optr_1a, int optr_2a, int mode)
+{
+	optrAddSub(optr_1a, optr_2a, mode);
+
+	if (mode == 0)
+	{
+		optr_1a = optr_1;
+		optr_2a = optr_2;
+	}
+	else if (mode == 1)
+	{
+		optr_2a = optr_1;
+		optr_1a = optr_2;
+	}
+
+	//storing the current number as a string
+	std::string num{ storeString(optr_1a, optr_2a) };
+
+	//converting the number to integer and adding to result
+	if (!num.empty())
+	{
+		if (expression[optr_1a] == '+')
+			result += doubleConvert(num);
+		else if (expression[optr_1a] == '-')
+			result -= doubleConvert(num);
+	}
+}
+
+int Expression::formatAddSubFor(int optr_1a, int optr_2a, int mode, int consOptrDone)
+{
+	optrAddSub(optr_1a, optr_2a, mode);
+
+	if (mode == 0)
+	{
+		optr_1a = optr_1;
+		optr_2a = optr_2;
+	}
+	else if (mode == 1)
+	{
+		optr_2a = optr_1;
+		optr_1a = optr_2;
+	}
+
+	if (optr_1a == optr_2a - 1)
+	{
+		storeExpressionCons(optr_1a, optr_2a);
+		return consOptrDone + 1;
+	}
+
+	return 0;
+}
+
+
+/* evaluate */
 void Expression::addSub()
 {
 	//formating the original expression by adding a sign
@@ -181,86 +338,21 @@ void Expression::addSub()
 		expression = '+' + expression;
 
 	reset();
-
-	stringSize = calStringSize();
-	int consOptrDone{}, numOfConsOptr{ calNumOfConsOptr() };
-	int j{};
-
-	//formatting the original expression by processing the consecutive signs
-	for(consOptrDone; consOptrDone < numOfConsOptr;)
-	{
-		if (j == 0)
-		{
-			optr_2 = optr_1;
-			optr_2 = setAndFind(optr_1 + 1, 1, 1, 2);
-
-			if (optr_1 == optr_2 - 1)
-			{
-				storeExpressionNeg(optr_1, optr_2);
-				consOptrDone++;
-			}
-
-			j = 1;
-		}
-		else if (j ==1)
-		{
-			optr_1 = optr_2;
-			optr_1 = setAndFind(optr_2 + 1, 1, 1, 2);
-
-			if (optr_2 == optr_1 - 1)
-			{
-				storeExpressionNeg(optr_2, optr_1);
-				consOptrDone++;
-			}
-
-			j = 0;
-		}
-	}
-
-	reset();
 	numOfOptr = calNumOfOptr('+') + calNumOfOptr('-');
 	stringSize = calStringSize();
-	j = 0;
+	int j{};
 
 	//for loop to undergo addition & subtraction
 	for (optrDone; optrDone < numOfOptr; optrDone++)
 	{
 		if (j == 0)
 		{
-			optr_2 = optr_1;
-
-			//find the position of next operator
-			optr_2 = setAndFind(optr_1 + 1, 1, 1, 2);
-
-			//storing the current number as a string
-			std::string num{ storeString(optr_1, optr_2) };
-			
-			//converting the number to integer and adding to result
-			if(!num.empty())
-			{
-				if (expression[optr_1] == '+')
-					result += doubleConvert(num);
-				else if (expression[optr_1] == '-')
-					result -= doubleConvert(num);
-			}
-
+			addSubFor(optr_1, optr_2, 0);
 			j = 1;
 		}
 		else
 		{
-			optr_1 = optr_2;
-			optr_1 = setAndFind(optr_2 + 1, 1, 1, 2);
-
-			std::string num{ storeString(optr_2, optr_1) };
-			
-			if (!num.empty())
-			{
-				if (expression[optr_2] == '+')
-					result += doubleConvert(num);
-				else if (expression[optr_2] == '-')
-					result -= doubleConvert(num);
-			}
-
+			addSubFor(optr_2, optr_1, 1);
 			j = 0;
 		}
 	}
