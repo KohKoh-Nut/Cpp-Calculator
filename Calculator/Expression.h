@@ -10,6 +10,7 @@ class Expression
 public:
 	Condition MyCondition;
 
+	/* variables */
 	//the string for expression
 	std::string expression;
 	
@@ -22,16 +23,23 @@ public:
 	//the result evaluated from the expression
 	double result{};
 
-	/* others */
-	//method to format the expression
-	void format();
 
+	/* others */
 	//method to reset the variables
 	void reset();
 	void resetPOF();
 
 	//method to get input from user
-	void getInput();
+	void input();
+
+	//method to output the result
+	void output();
+
+	//method to format the expression
+	void format();
+
+	//method to detect error and stop execution
+	void error();
 
 
 	/* store */
@@ -78,7 +86,9 @@ public:
 
 
 	/* addSubForLoop*/
+	//method for the if repeating
 	void addSubFor(int optr_1a, int optr_2a, int mode);
+	//method for the if repeating
 	int formatAddSubFor(int optr_1a, int optr_2a, int mode, int consOptrDone);
 
 

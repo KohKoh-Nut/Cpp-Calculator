@@ -9,12 +9,11 @@ int main()
 	Expression MyExpression;
 
 	//get expression from user and output the result
-	MyExpression.getInput();
+	MyExpression.input();
 	MyExpression.format();
 	MyExpression.multDiv();
 	MyExpression.addSub();
-
-	std::cout << MyExpression.result;
+	MyExpression.output();
 
 	return 0;
 }

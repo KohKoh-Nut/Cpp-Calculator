@@ -16,10 +16,15 @@ void Expression::resetPOF()
 	posOfFor = 0;
 }
 
-void Expression::getInput()
+void Expression::input()
 {
 	std::cout << "Enter an expression: ";
 	std::cin >> expression;
+}
+
+void Expression::output()
+{
+	std::cout << result;
 }
 
 void Expression::format()
@@ -35,10 +40,6 @@ void Expression::format()
 			{
 				optr_1 = posOfFor;
 				optr_2 = setAndFind(optr_1 - 1, -1, 2, 1);
-				//detect whether it's at the beginning of the expression or not
-				if (optr_2 == 0)
-					optr_2 = -1;
-
 				optr_3 = posOfFor + 1;
 
 				storeExpressionConsMultDiv(optr_2, optr_3);
@@ -68,6 +69,12 @@ void Expression::format()
 			j = 0;
 		}
 	}
+}
+
+void Expression::error()
+{
+	std::cout << "Error";
+	exit(0);
 }
 
 
@@ -228,10 +235,15 @@ int Expression::setAndFind(int POForigin, int actAfterFor, int forMode, int ifmo
 		if (MyCondition.posOfFor == MyCondition.stringSize)
 			return MyCondition.stringSize + 1;
 
+		//detect whether it's at the beginning of the expression or not
+		if (MyCondition.posOfFor == 0 && forMode == 2)
+			return -1;
+
 		if (MyCondition.checkIfCondition(ifmode, i))
 			return MyCondition.posOfFor;
 	}
 
+	error();
 	return 0;
 }
 
@@ -244,11 +256,17 @@ std::string Expression::processOptr(std::string num1, std::string num2)
 	case '*':
 		numResult = std::to_string(doubleConvert(num1) * doubleConvert(num2));
 		break;
+
 	case '/':
 		numResult = std::to_string(doubleConvert(num1) / doubleConvert(num2));
 		break;
+
 	case '%':
 		numResult = std::to_string(std::stoi(num1) % std::stoi(num2));
+		break;
+
+	default:
+		error();
 		break;
 	}
 
@@ -299,9 +317,9 @@ void Expression::addSubFor(int optr_1a, int optr_2a, int mode)
 	if (!num.empty())
 	{
 		if (expression[optr_1a] == '+')
-			result += doubleConvert(num);
+			result += std::stod(num);
 		else if (expression[optr_1a] == '-')
-			result -= doubleConvert(num);
+			result -= std::stod(num);
 	}
 }
 
@@ -325,7 +343,8 @@ int Expression::formatAddSubFor(int optr_1a, int optr_2a, int mode, int consOptr
 		storeExpressionCons(optr_1a, optr_2a);
 		return consOptrDone + 1;
 	}
-
+	
+	error();
 	return 0;
 }
 
@@ -378,10 +397,6 @@ void Expression::multDiv()
 
 		//find the position of operator before
 		optr_2 = setAndFind(optr_1 - 1, -1, 2, 1);
-
-		//detect whether it's at the beginning of the expression or not
-		if (optr_2 == 0)
-			optr_2 = -1;
 
 		//find the position of operator after
 		optr_3 = setAndFind(optr_1 + 1, 1, 1, 1);

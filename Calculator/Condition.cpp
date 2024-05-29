@@ -1,4 +1,11 @@
 #include "Condition.h"
+#include <iostream>
+
+void Condition::error()
+{
+	std::cout << "Error";
+	exit(0);
+}
 
 bool Condition::checkForCondition(int i)
 {
@@ -13,6 +20,7 @@ bool Condition::checkForCondition(int i)
 		break;
 
 	default:
+		error();
 		return 0;
 		break;
 	}
@@ -35,6 +43,7 @@ bool Condition::checkIfCondition(int i, char j)
 		break;
 
 	default:
+		error();
 		return 0;
 		break;
 	}
