@@ -44,20 +44,16 @@ public:
 
 	/* store */
 	//method to store new expression
-	void storeExpression(int optr_bef, int optr_af, std::string num);
+	void storeExp(int optr_bef, int optr_af, std::string num);
 
 	//method to store new expression after processing two consecutive negatives
-	void storeExpressionCons(int optr_bef, int optr_af);
+	void storeExpCons(int optr_bef, int optr_af);
 
-	//method to store new expression after processing signs right after * & /
-	void storeExpressionConsMultDiv(int optr_bef, int optr_af);
+	//method to store new expression after processing signs right after * & / & ^
+	void storeExpConsMultDivOrders(int optr_bef, int optr_af, int mode);
 
 	//method to store string
 	std::string storeString(int optr_bef, int optr_af);
-
-	//WIP
-	//method take in string and convert it to double
-	double doubleConvert(std::string num);
 
 
 	/* calculate */
@@ -65,10 +61,7 @@ public:
 	int calNumOfOptr(char optr);
 
 	//method to calculate number of consecutive operator for formatting the expression
-	int calNumOfConsOptr();
-
-	//method to calculate number of consecutive operator for formatting the expression
-	int calNumOfConsOptrMultDiv();
+	int calNumOfConsOptr(int j);
 
 	//method to calculate the string size of the expression
 	int calStringSize();
@@ -85,11 +78,12 @@ public:
 	void optrAddSub(int optr_1a, int optr_2a, int mode);
 
 
-	/* addSubForLoop*/
+	/* addSubForLoop */
 	//method for the if repeating
-	void addSubFor(int optr_1a, int optr_2a, int mode);
+	void forLoopAddSub(int optr_1a, int optr_2a, int mode);
+
 	//method for the if repeating
-	int formatAddSubFor(int optr_1a, int optr_2a, int mode, int consOptrDone);
+	int forLoopAddSubFormat(int optr_1a, int optr_2a, int mode, int consOptrDone);
 
 
 	/* evaluate */
@@ -98,6 +92,9 @@ public:
 
 	//method to undergo multiplication & division
 	void multDiv();
+
+	//method to process orders 
+	void orders();
 };
 
 #endif

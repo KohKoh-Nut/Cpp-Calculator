@@ -19,8 +19,7 @@ public:
 	bool checkOptrAll(char i);
 	bool checkOptrAddSub(char i);
 	bool checkOptrMultDiv(char i);
-
-	
+	bool checkOptrOrders(char i);
 };
 
 #endif

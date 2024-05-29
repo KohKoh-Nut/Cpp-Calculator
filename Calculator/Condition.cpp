@@ -42,6 +42,10 @@ bool Condition::checkIfCondition(int i, char j)
 		return checkOptrMultDiv(j);
 		break;
 
+	case 4:
+		return checkOptrOrders(j);
+		break;
+
 	default:
 		error();
 		return 0;
@@ -62,4 +66,10 @@ bool Condition::checkOptrAddSub(char i)
 bool Condition::checkOptrMultDiv(char i)
 {
 	return (i == '*' || i == '/' || i == '%');
+}
+
+bool Condition::checkOptrOrders(char i)
+
+{
+	return (i == '^');
 }
