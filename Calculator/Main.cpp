@@ -9,12 +9,7 @@ int main()
 	Expression MyExpression;
 
 	//get expression from user and output the result
-	MyExpression.input();
-	MyExpression.format();
-	MyExpression.orders();
-	MyExpression.multDiv();
-	MyExpression.addSub();
-	MyExpression.output();
+	MyExpression.evaluate();
 
 	return 0;
 }

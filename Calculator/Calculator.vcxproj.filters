@@ -24,12 +24,18 @@
     <ClCompile Include="Condition.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="IOError.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Expression.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Condition.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="IOError.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

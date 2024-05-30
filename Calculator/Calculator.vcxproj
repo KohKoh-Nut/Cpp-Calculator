@@ -137,11 +137,13 @@
   <ItemGroup>
     <ClCompile Include="Condition.cpp" />
     <ClCompile Include="Expression.cpp" />
+    <ClCompile Include="IOError.cpp" />
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Condition.h" />
     <ClInclude Include="Expression.h" />
+    <ClInclude Include="IOError.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

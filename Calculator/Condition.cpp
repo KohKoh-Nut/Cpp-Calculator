@@ -1,11 +1,6 @@
 #include "Condition.h"
+#include "IOError.h"
 #include <iostream>
-
-void Condition::error()
-{
-	std::cout << "Error";
-	exit(0);
-}
 
 bool Condition::checkForCondition(int i)
 {
@@ -20,7 +15,7 @@ bool Condition::checkForCondition(int i)
 		break;
 
 	default:
-		error();
+		MyIOError.error();
 		return 0;
 		break;
 	}
@@ -31,45 +26,32 @@ bool Condition::checkIfCondition(int i, char j)
 	switch (i)
 	{
 	case 1:
-		return checkOptrAll(j);
+		return (j == '+' || j == '-' || j == '*' || j == '/' || j == '%');
 		break;
 
 	case 2:
-		return checkOptrAddSub(j);
+		return (j == '+' || j == '-');
 		break;
 
 	case 3:
-		return checkOptrMultDiv(j);
+		return (j == '*' || j == '/' || j == '%');
 		break;
 
 	case 4:
-		return checkOptrOrders(j);
+		return (j == '^');
+		break;
+
+	case 5:
+		return (j == '(');
+		break;
+
+	case 6:
+		return (j == '(' || j == ')');
 		break;
 
 	default:
-		error();
+		MyIOError.error();
 		return 0;
 		break;
 	}
-}
-
-bool Condition::checkOptrAll(char i)
-{
-	return (i == '+' || i == '-' || i == '*' || i == '/' || i == '%');
-}
-
-bool Condition::checkOptrAddSub(char i)
-{
-	return (i == '+' || i == '-');
-}
-
-bool Condition::checkOptrMultDiv(char i)
-{
-	return (i == '*' || i == '/' || i == '%');
-}
-
-bool Condition::checkOptrOrders(char i)
-
-{
-	return (i == '^');
 }

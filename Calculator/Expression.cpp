@@ -1,9 +1,11 @@
 #include "Expression.h"
+#include "IOError.h"
 #include "Condition.h"
 #include <string>
 #include <iostream>
 
 /* others */
+
 void Expression::reset()
 {
 	posOfFor = 0, stringSize = 0;
@@ -16,28 +18,37 @@ void Expression::resetPOF()
 	posOfFor = 0;
 }
 
-void Expression::input()
-{
-	std::cout << "Enter an expression: ";
-	std::cin >> expression;
-}
-
-void Expression::output()
-{
-	std::cout << result;
-}
-
 void Expression::format()
 {
+	int consOptrBracDone{}, numOfConsOptrBrac{ calNumOfBracOptr() };
+	stringSize = calStringSize();
+
+	for (;consOptrBracDone < numOfConsOptrBrac; consOptrBracDone++)
+	{
+		for (char i : expression)
+		{
+			if (!MyCondition.checkIfCondition(1, i) && MyCondition.checkIfCondition(5, expression[posOfFor + 1]))
+			{
+				optr_1 = posOfFor;
+				optr_2 = posOfFor + 1;
+
+				storeExpBracOptr(optr_1, optr_2);
+				break;
+			}
+
+			posOfFor++;
+		}
+	}
+
 	int consOptrMultDivDone{}, numOfConsOptrMultDiv{ calNumOfConsOptr(3) };
 	stringSize = calStringSize();
 
 	//format the signs after * & /
-	for (consOptrMultDivDone; consOptrMultDivDone < numOfConsOptrMultDiv; consOptrMultDivDone++)
+	for (; consOptrMultDivDone < numOfConsOptrMultDiv; consOptrMultDivDone++)
 	{
 		for (char i : expression)
 		{
-			if (MyCondition.checkOptrMultDiv(i) && MyCondition.checkOptrAddSub(expression[posOfFor + 1]))
+			if (MyCondition.checkIfCondition(3, i) && MyCondition.checkIfCondition(2, expression[posOfFor + 1]))
 			{
 				optr_1 = posOfFor;
 				optr_2 = setAndFind(optr_1 - 1, -1, 2, 1);
@@ -55,7 +66,7 @@ void Expression::format()
 	int j{};
 
 	//formatting the original expression by processing the consecutive signs
-	for (consOptrDone; consOptrDone < numOfConsOptr;)
+	for (; consOptrDone < numOfConsOptr;)
 	{
 		reset();
 		stringSize = calStringSize();
@@ -75,11 +86,11 @@ void Expression::format()
 	stringSize = calStringSize();
 
 	//format the signs after ^
-	for (consOptrOrdersDone; consOptrOrdersDone < numOfConsOptrOrders; consOptrOrdersDone++)
+	for (; consOptrOrdersDone < numOfConsOptrOrders; consOptrOrdersDone++)
 	{
 		for (char i : expression)
 		{
-			if (MyCondition.checkOptrOrders(i) && MyCondition.checkOptrAddSub(expression[posOfFor + 1]))
+			if (MyCondition.checkIfCondition(4, i) && MyCondition.checkIfCondition(2, expression[posOfFor + 1]))
 			{
 				optr_1 = posOfFor;
 				optr_2 = setAndFind(optr_1 - 1, -1, 2, 1);
@@ -94,14 +105,20 @@ void Expression::format()
 	}
 }
 
-void Expression::error()
+void Expression::evaluate()
 {
-	std::cout << "Error";
-	exit(0);
+	expression = MyIOError.input();
+	format();
+	brackets();
+	orders();
+	multDiv();
+	addSub(0);
+	MyIOError.output(result);
 }
 
 
 /* store */
+
 void Expression::storeExp(int optr_bef, int optr_af, std::string num)
 {
 	//string to store the new expression after evaluation
@@ -164,6 +181,50 @@ void Expression::storeExpConsMultDivOrders(int optr_bef, int optr_af, int mode)
 	expression = expConsMultDivOrders;
 }
 
+void Expression::storeExpBracOptr(int optr_bef, int optr_af)
+{
+	//string to store the new expression after evaluation
+	std::string expBrac;
+
+	//the process of storing the new expression
+	for (posOfFor = 0; posOfFor <= optr_bef; posOfFor++)
+		expBrac += expression[posOfFor];
+
+	expBrac += '*';
+
+	for (posOfFor = optr_af; posOfFor <= stringSize; posOfFor++)
+		expBrac += expression[posOfFor];
+
+	//putting the new expression back to expression for further evaluation
+	expression = expBrac;
+}
+
+std::string Expression::storeExpBrac(int optr_bef, int optr_af)
+{
+	std::string expBrac;
+
+	for (posOfFor = optr_bef + 1; posOfFor < optr_af; posOfFor++)
+		expBrac += expression[posOfFor];
+
+	return expBrac;
+}
+
+std::string Expression::storeExpBracAf(int optr_bef, int optr_af, std::string exp, int stringSizeAf)
+{
+	std::string expBracAf;
+
+	for (posOfFor = 0; posOfFor < optr_bef; posOfFor++)
+		expBracAf += exp[posOfFor];
+
+	expBracAf += std::to_string(resultBrac);
+	resultBrac = 0;
+
+	for (posOfFor = optr_af + 1; posOfFor <= stringSizeAf; posOfFor++)
+		expBracAf += exp[posOfFor];
+
+	return expBracAf;
+}
+
 std::string Expression::storeString(int optr_bef, int optr_af)
 {
 	std::string num;
@@ -176,6 +237,7 @@ std::string Expression::storeString(int optr_bef, int optr_af)
 
 
 /* calculate */
+
 int Expression::calNumOfOptr(char optr)
 {
 	resetPOF();
@@ -199,13 +261,29 @@ int Expression::calNumOfConsOptr(int j)
 
 	for (char i : expression)
 	{
-		if (MyCondition.checkIfCondition(j, i) && MyCondition.checkOptrAddSub(expression[posOfFor + 1]))
+		if (MyCondition.checkIfCondition(j, i) && MyCondition.checkIfCondition(2, expression[posOfFor + 1]))
 			numOfConsOptr++;
 
 		posOfFor++;
 	}
 
 	return numOfConsOptr;
+}
+
+int Expression::calNumOfBracOptr()
+{
+	resetPOF();
+	int numOfBracOptr{};
+
+	for (char i : expression)
+	{
+		if (!MyCondition.checkIfCondition(1, i) && MyCondition.checkIfCondition(5, expression[posOfFor + 1]))
+			numOfBracOptr++;
+
+		posOfFor++;
+	}
+
+	return numOfBracOptr;
 }
 
 int Expression::calStringSize()
@@ -222,9 +300,9 @@ int Expression::calStringSize()
 
 
 /* set and find */
+
 int Expression::setAndFind(int POForigin, int actAfterFor, int forMode, int ifmode)
 {
-	MyCondition.posOfFor = posOfFor;
 	MyCondition.stringSize = stringSize;
 
 	for (MyCondition.posOfFor = POForigin; MyCondition.checkForCondition(forMode); MyCondition.posOfFor += actAfterFor)
@@ -232,7 +310,7 @@ int Expression::setAndFind(int POForigin, int actAfterFor, int forMode, int ifmo
 		char i = expression[MyCondition.posOfFor];
 
 		//make detecting the last number possible
-		if (MyCondition.posOfFor == MyCondition.stringSize)
+		if (MyCondition.posOfFor == MyCondition.stringSize && ifmode != 6)
 			return MyCondition.stringSize + 1;
 
 		//detect whether it's at the beginning of the expression or not
@@ -243,7 +321,7 @@ int Expression::setAndFind(int POForigin, int actAfterFor, int forMode, int ifmo
 			return MyCondition.posOfFor;
 	}
 
-	error();
+	MyIOError.error();
 	return 0;
 }
 
@@ -270,7 +348,7 @@ std::string Expression::processOptr(std::string num1, std::string num2)
 		break;
 
 	default:
-		error();
+		MyIOError.error();
 		break;
 	}
 
@@ -299,7 +377,8 @@ void Expression::optrAddSub(int optr_1a, int optr_2a, int mode)
 
 
 /* addSubForLoop */
-void Expression::forLoopAddSub(int optr_1a, int optr_2a, int mode)
+
+void Expression::forLoopAddSub(int optr_1a, int optr_2a, int mode, int brac)
 {
 	optrAddSub(optr_1a, optr_2a, mode);
 
@@ -320,10 +399,20 @@ void Expression::forLoopAddSub(int optr_1a, int optr_2a, int mode)
 	//converting the number to integer and adding to result
 	if (!num.empty())
 	{
-		if (expression[optr_1a] == '+')
-			result += std::stod(num);
-		else if (expression[optr_1a] == '-')
-			result -= std::stod(num);
+		if (brac == 0)
+		{
+			if (expression[optr_1a] == '+')
+				result += std::stod(num);
+			else if (expression[optr_1a] == '-')
+				result -= std::stod(num);
+		}
+		else if (brac == 1)
+		{
+			if (expression[optr_1a] == '+')
+				resultBrac += std::stod(num);
+			else if (expression[optr_1a] == '-')
+				resultBrac -= std::stod(num);
+		}
 	}
 }
 
@@ -348,13 +437,14 @@ int Expression::forLoopAddSubFormat(int optr_1a, int optr_2a, int mode, int cons
 		return consOptrDone + 1;
 	}
 	
-	error();
+	MyIOError.error();
 	return 0;
 }
 
 
 /* evaluate */
-void Expression::addSub()
+
+void Expression::addSub(int brac)
 {
 	//formating the original expression by adding a sign
 	if (expression[0] != '+' && expression[0] != '-')
@@ -370,12 +460,12 @@ void Expression::addSub()
 	{
 		if (j == 0)
 		{
-			forLoopAddSub(optr_1, optr_2, 0);
+			forLoopAddSub(optr_1, optr_2, 0, brac);
 			j = 1;
 		}
 		else
 		{
-			forLoopAddSub(optr_2, optr_1, 1);
+			forLoopAddSub(optr_2, optr_1, 1, brac);
 			j = 0;
 		}
 	}
@@ -441,5 +531,45 @@ void Expression::orders()
 		std::string num3{ processOptr(num1, num2) };
 
 		storeExp(optr_2, optr_3, num3);
+	}
+}
+
+void Expression::brackets()
+{
+	reset();
+	numOfOptr = calNumOfOptr('(');
+
+	if (numOfOptr == 0)
+		return;
+
+	for (;optrDone < numOfOptr;)
+	{
+		stringSize = calStringSize();
+
+		optr_1 = setAndFind(0, 1, 1, 5);
+		optr_2 = setAndFind(optr_1 + 1, 1, 1, 6);
+
+		if (expression[optr_1] == '(' && expression[optr_2] == '(')
+		{
+			optr_1 = optr_2;
+			optr_2 = setAndFind(optr_1 + 1, 1, 1, 6);
+		}
+		else if (expression[optr_1] == '(' && expression[optr_2] == ')')
+		{
+			std::string expression_brackets{ expression };
+			int optr_1a{ optr_1 }, optr_2a{ optr_2 }, stringSizeAf{ stringSize };
+			int optrDoneAf{ optrDone }, numOfOptrAf{ numOfOptr };
+
+			expression = storeExpBrac(optr_1, optr_2);
+
+			format();
+			orders();
+			multDiv();
+			addSub(1);
+
+			expression = storeExpBracAf(optr_1a, optr_2a, expression_brackets, stringSizeAf);
+			optrDone = optrDoneAf + 1;
+			numOfOptr = numOfOptrAf;
+		}
 	}
 }

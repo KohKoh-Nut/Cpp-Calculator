@@ -1,25 +1,20 @@
 #ifndef CONDITION_H
 #define CONDITION_H
 
+#include "IOError.h"
+
 //a class to process conditions
 class Condition
 {
 public:
+	IOError MyIOError;
+
 	int posOfFor{};
 	int stringSize{};
-
-	//method to detect error and stop execution
-	void error();
 
 	//check the condition for the method to find position of operator
 	bool checkForCondition(int i);
 	bool checkIfCondition(int i,char j);
-
-	//methods to check if the character is an operator or not
-	bool checkOptrAll(char i);
-	bool checkOptrAddSub(char i);
-	bool checkOptrMultDiv(char i);
-	bool checkOptrOrders(char i);
 };
 
 #endif
