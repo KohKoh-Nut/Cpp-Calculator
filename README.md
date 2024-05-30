@@ -15,8 +15,8 @@ It's currently only workable in console, but there're potential uses like combin
 ## Features
 * Do basic arithmatic operations
 * Deal with orders
-### To-Do
 * Process brackets
+### To-Do
 * Constants (eg. pi)
 * Mathematical functions (eg. trigonometric functions)
 * Other Modes
