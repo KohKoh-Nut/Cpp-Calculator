@@ -1,0 +1,45 @@
+﻿access with letters
+pi:(π)
+e:(e)
+
+access with specific code
+01: (mp) proton mass
+02: (mn) neutron mass
+03: (me) electron mass
+04: (mμ) muon mass
+05: (a0) Bohr radius
+06: (h) Planck constant
+07: (μN) nuclear magneton
+08: (μB) Bohr magneton
+09: () Planck constant, rationalized
+10: (α) fine-structure constant
+11: (re) classical electron radius
+12: (λC) Compton wavelength
+13: (γp) proton gyromagnetic ratio
+14: (λCp) proton Compton wavelength
+15: (λCn) neutron Compton wavelength
+16: (R∞) Rydberg constant
+17: (u) atomic mass unit
+18: (μp) proton magnetic moment
+19: (μe) electron magnetic moment
+20: (μn) neutron magnetic moment
+21: (μμ) muon magnetic moment
+22: (F) Faraday constant
+23: (e) elementary charge
+24: (NA) Avogadro constant
+25: (k) Boltzmann constant
+26: (Vm) molar volume of ideal gas (237.15K, 100kPa)
+27: (R) molar gas constant
+28: (C0) speed of light in vacuum
+29: (C1) first radiation constant
+30: (C2) second radiation constant
+31: (σ) Stefan-Boltzmann constant
+32: (ε0) electric constant
+33: (μ0) magnetic constant
+34: (Φ0) magnetic flux quantum
+35: (g) standard acceleration of gravity
+36: (G0) conductance quantum
+37: (Z0) characteristic impedance of vacuum
+38: (t) Celsius temperature
+39: (G) Newtonian constant of gravitation
+40: (atm) standard atmosphere
