@@ -55,6 +55,9 @@ public:
 	//method to store new expression after formatting brackets without operator right before
 	void storeExpBracOptr(int optr_bef, int optr_af);
 
+	//method to store new expression after formatting consecutive brackets
+	void storeExpConsBracOptr(int optr_bef, int optr_af, int mode);
+
 	//method to store a sub-expression inside the brackets
 	std::string storeExpBrac(int optr_bef, int optr_af);
 
@@ -73,7 +76,10 @@ public:
 	int calNumOfConsOptr(int j);
 
 	//method to calculate number of brackets without operator right before for formatting
-	int calNumOfBracOptr();
+	int calNumOfBracFroOptr();
+
+	//method to calculate number of brackets without operator right after for formatting
+	int calNumOfBracBacOptr();
 
 	//method to calculate the string size of the expression
 	int calStringSize();

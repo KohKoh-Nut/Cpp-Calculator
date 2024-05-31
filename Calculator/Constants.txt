@@ -1,45 +1,45 @@
 access with letters
-pi:(π) = 3.14159265359
-e:(e) Euler's number = 2.718281828459
+pi:(π)					= 3.14159265359
+e:(e) Euler's number	= 2.718281828459
 
-access with specific code
-01: (mp) proton mass = 1.67262192595e-27 kg
-02: (mn) neutron mass = 1.67492750056e-2 kg
-03: (me) electron mass = 9.1093837139e-31 kg
-04: (mμ) muon mass = 1.883531627e-28 kg
-05: (a0) Bohr radius
-06: (h) Planck constant
-07: (μN) nuclear magneton
-08: (μB) Bohr magneton
-09: () Planck constant, rationalized
-10: (α) fine-structure constant
-11: (re) classical electron radius
-12: (λC) Compton wavelength
-13: (γp) proton gyromagnetic ratio
-14: (λCp) proton Compton wavelength
-15: (λCn) neutron Compton wavelength
-16: (R∞) Rydberg constant
-17: (u) atomic mass unit
-18: (μp) proton magnetic moment
-19: (μe) electron magnetic moment
-20: (μn) neutron magnetic moment
-21: (μμ) muon magnetic moment
-22: (F) Faraday constant
-23: (e) elementary charge
-24: (NA) Avogadro constant
-25: (k) Boltzmann constant
-26: (Vm) molar volume of ideal gas (237.15K, 100kPa)
-27: (R) molar gas constant
-28: (C0) speed of light in vacuum
-29: (C1) first radiation constant
-30: (C2) second radiation constant
-31: (σ) Stefan-Boltzmann constant
-32: (ε0) electric constant
-33: (μ0) magnetic constant
-34: (Φ0) magnetic flux quantum
-35: (g) standard acceleration of gravity
-36: (G0) conductance quantum
-37: (Z0) characteristic impedance of vacuum
-38: (t) Celsius temperature
-39: (G) Newtonian constant of gravitation
-40: (atm) standard atmosphere
+access with specific code number
+01: (mp) proton mass						= 1.67262192595e-27 kg
+02: (mn) neutron mass						= 1.67492750056e-2	kg
+03: (me) electron mass						= 9.1093837139e-31	kg
+04: (mμ) muon mass							= 1.883531627e-28	kg
+05: (a0) Bohr radius						= 5.29177210544e-11	m
+06: (h) Planck constant						= 6.62607015e−34	J/Hz
+07: (μN) nuclear magneton					= 5.050783699e−27	J/T
+08: (μB) Bohr magneton						= 9.2740100657e−24	J/T
+09: (ℏ) Planck constant, rationalized		= 1.054571817e−34	J⋅s
+10: (α) fine-structure constant				= 7.29735257e-3
+11: (re) classical electron radius			= 2.817940327e-15	M
+12: (λC) Compton wavelength					= 2.426310239e-12	M
+13: (γp) proton gyromagnetic ratio			= 2.675222005e+8	1/s⋅T
+14: (λCp) proton Compton wavelength			= 1.321409856e-15	M
+15: (λCn) neutron Compton wavelength		= 1.319590907e-15	M
+16: (R∞) Rydberg constant					= 1.09737315e+7		1/m
+17: (u) atomic mass unit					= 1.660538921e-27	Kg
+18: (μp) proton magnetic moment				= 1.410606743e-26	J/T
+19: (μe) electron magnetic moment			= -9.2847643e-24	J/T
+20: (μn) neutron magnetic moment			= -9.6623647e-27	J/T
+21: (μμ) muon magnetic moment				= -4.49044807e-26	J/T
+22: (F) Faraday constant					= 9.648533213e+4	C/mol
+23: (e) elementary charge					= 1.602176565e-19	C
+24: (NA) Avogadro constant					= 6.02214076e+23	1/mol
+25: (k) Boltzmann constant					= 1.3806488e-23		J/K
+26: (Vm) molar volume of ideal gas (100kPa)	= 0.022710954		m^3/mol
+27: (R) molar gas constant					= 8.314462618		J/mol⋅K
+28: (C0) speed of light in vacuum			= 2.99792458e8		m/s
+29: (C1) first radiation constant			= 3.741771852e-16	W⋅m^2
+30: (C2) second radiation constant			= 1.438775e-2		m⋅K
+31: (σ) Stefan-Boltzmann constant			= 5.670374419e-8	W/m^2⋅K^4
+32: (ε0) electric constant					= 8.854187817e-12	F/m
+33: (μ0) magnetic constant					= 1.256637061e-6	H/m
+34: (Φ0) magnetic flux quantum				= 2.067833848e-15	Wb
+35: (g) standard acceleration of gravity	= 9.80665			m/s^2
+36: (G0) conductance quantum				= 7.748091729e-5	S
+37: (Z0) characteristic impedance of vacuum	= 376.730313412		Ω
+38: (t) Celsius temperature					= 273.15			K
+39: (G) Newtonian constant of gravitation	= 6.67384e-11		N⋅m^2/kg^2
+40: (atm) standard atmosphere				= 101325			Pa

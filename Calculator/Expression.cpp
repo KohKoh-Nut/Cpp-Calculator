@@ -20,19 +20,33 @@ void Expression::resetPOF()
 
 void Expression::format()
 {
-	int consOptrBracDone{}, numOfConsOptrBrac{ calNumOfBracOptr() };
+	/* format front brackets */ 
+
+	int consOptrBracFroDone{}, numOfConsOptrFroBrac{ calNumOfBracFroOptr() };
 	stringSize = calStringSize();
 
-	for (;consOptrBracDone < numOfConsOptrBrac; consOptrBracDone++)
+	for (;consOptrBracFroDone < numOfConsOptrFroBrac; consOptrBracFroDone++)
 	{
 		for (char i : expression)
 		{
-			if (!MyCondition.checkIfCondition(1, i) && MyCondition.checkIfCondition(5, expression[posOfFor + 1]))
+			if (!MyCondition.checkIfCondition(1, i) && !MyCondition.checkIfCondition(5, i) && MyCondition.checkIfCondition(5, expression[posOfFor + 1]))
 			{
 				optr_1 = posOfFor;
 				optr_2 = posOfFor + 1;
 
+				int posOfForA{ posOfFor };
 				storeExpBracOptr(optr_1, optr_2);
+				posOfFor = posOfForA;
+				break;
+			}
+			else if (MyCondition.checkIfCondition(5, i) && MyCondition.checkIfCondition(5, expression[posOfFor + 1]))
+			{
+				optr_1 = posOfFor;
+				optr_2 = posOfFor + 1;
+
+				int posOfForA{ posOfFor };
+				storeExpConsBracOptr(optr_1, optr_2, 0);
+				posOfFor = posOfForA;
 				break;
 			}
 
@@ -40,10 +54,45 @@ void Expression::format()
 		}
 	}
 
+	/* format back brackets */
+
+	int consOptrBracBacDone{}, numOfConsOptrBacBrac{ calNumOfBracBacOptr() };
+	stringSize = calStringSize();
+
+	for (; consOptrBracBacDone < numOfConsOptrBacBrac; consOptrBracBacDone++)
+	{
+		for (char i : expression)
+		{
+			if (MyCondition.checkIfCondition(7, i) && !MyCondition.checkIfCondition(1, expression[posOfFor + 1]) && !MyCondition.checkIfCondition(7, expression[posOfFor + 1]))
+			{
+				optr_1 = posOfFor;
+				optr_2 = posOfFor + 1;
+
+				int posOfForA{ posOfFor };
+				storeExpBracOptr(optr_1, optr_2);
+				posOfFor = posOfForA;
+				break;
+			}
+			else if (MyCondition.checkIfCondition(7, i) && MyCondition.checkIfCondition(7, expression[posOfFor + 1]))
+			{
+				optr_1 = posOfFor;
+				optr_2 = posOfFor + 1;
+
+				int posOfForA{ posOfFor };
+				storeExpConsBracOptr(optr_1, optr_2, 1);
+				posOfFor = posOfForA;
+				break;
+			}
+
+			posOfFor++;
+		}
+	}
+
+	/* format the signs after * and / */
+
 	int consOptrMultDivDone{}, numOfConsOptrMultDiv{ calNumOfConsOptr(3) };
 	stringSize = calStringSize();
 
-	//format the signs after * & /
 	for (; consOptrMultDivDone < numOfConsOptrMultDiv; consOptrMultDivDone++)
 	{
 		for (char i : expression)
@@ -65,7 +114,7 @@ void Expression::format()
 	int consOptrDone{}, numOfConsOptr{ calNumOfConsOptr(2) };
 	int j{};
 
-	//formatting the original expression by processing the consecutive signs
+	/* formatting the original expression by processing the consecutive signs */
 	for (; consOptrDone < numOfConsOptr;)
 	{
 		reset();
@@ -85,7 +134,7 @@ void Expression::format()
 	int consOptrOrdersDone{}, numOfConsOptrOrders{ calNumOfConsOptr(4) };
 	stringSize = calStringSize();
 
-	//format the signs after ^
+	/* format the signs after ^ */
 	for (; consOptrOrdersDone < numOfConsOptrOrders; consOptrOrdersDone++)
 	{
 		for (char i : expression)
@@ -139,10 +188,8 @@ void Expression::storeExp(int optr_bef, int optr_af, std::string num)
 
 void Expression::storeExpCons(int optr_bef, int optr_af)
 {
-	//string to store the new expression after evaluation
 	std::string expCons;
 
-	//the process of storing the new expression
 	for (posOfFor = 0; posOfFor < optr_bef ; posOfFor++)
 		expCons += expression[posOfFor];
 
@@ -156,7 +203,6 @@ void Expression::storeExpCons(int optr_bef, int optr_af)
 	for (posOfFor = optr_af + 1; posOfFor<= stringSize; posOfFor++)
 		expCons += expression[posOfFor];
 
-	//putting the new expression back to expression for further evaluation
 	expression = expCons;
 }
 
@@ -183,10 +229,8 @@ void Expression::storeExpConsMultDivOrders(int optr_bef, int optr_af, int mode)
 
 void Expression::storeExpBracOptr(int optr_bef, int optr_af)
 {
-	//string to store the new expression after evaluation
 	std::string expBrac;
 
-	//the process of storing the new expression
 	for (posOfFor = 0; posOfFor <= optr_bef; posOfFor++)
 		expBrac += expression[posOfFor];
 
@@ -195,7 +239,24 @@ void Expression::storeExpBracOptr(int optr_bef, int optr_af)
 	for (posOfFor = optr_af; posOfFor <= stringSize; posOfFor++)
 		expBrac += expression[posOfFor];
 
-	//putting the new expression back to expression for further evaluation
+	expression = expBrac;
+}
+
+void Expression::storeExpConsBracOptr(int optr_bef, int optr_af, int mode)
+{
+	std::string expBrac;
+
+	for (posOfFor = 0; posOfFor <= optr_bef; posOfFor++)
+		expBrac += expression[posOfFor];
+
+	if (mode == 0)
+		expBrac += "1*";
+	else if (mode == 1)
+		expBrac += "*1";
+
+	for (posOfFor = optr_af; posOfFor <= stringSize; posOfFor++)
+		expBrac += expression[posOfFor];
+
 	expression = expBrac;
 }
 
@@ -270,7 +331,7 @@ int Expression::calNumOfConsOptr(int j)
 	return numOfConsOptr;
 }
 
-int Expression::calNumOfBracOptr()
+int Expression::calNumOfBracFroOptr()
 {
 	resetPOF();
 	int numOfBracOptr{};
@@ -279,6 +340,29 @@ int Expression::calNumOfBracOptr()
 	{
 		if (!MyCondition.checkIfCondition(1, i) && MyCondition.checkIfCondition(5, expression[posOfFor + 1]))
 			numOfBracOptr++;
+
+		posOfFor++;
+	}
+
+	return numOfBracOptr;
+}
+
+int Expression::calNumOfBracBacOptr()
+{
+	int numOfBracOptr{}, j{};
+	posOfFor = 1;
+
+	for (char i : expression)
+	{
+		if (MyCondition.checkIfCondition(7, expression[posOfFor - 1]) && !MyCondition.checkIfCondition(1, i))
+			numOfBracOptr++;
+
+		//prevent the detection of back brackets being the first element of the string
+		if (j == 0)
+		{
+			posOfFor--;
+			j++;
+		}
 
 		posOfFor++;
 	}
@@ -542,15 +626,15 @@ void Expression::brackets()
 	if (numOfOptr == 0)
 		return;
 
+	stringSize = calStringSize();
+	optr_1 = setAndFind(0, 1, 1, 5);
+	optr_2 = setAndFind(optr_1 + 1, 1, 1, 6);
+
 	for (;optrDone < numOfOptr;)
 	{
-		stringSize = calStringSize();
-
-		optr_1 = setAndFind(0, 1, 1, 5);
-		optr_2 = setAndFind(optr_1 + 1, 1, 1, 6);
-
 		if (expression[optr_1] == '(' && expression[optr_2] == '(')
 		{
+			stringSize = calStringSize();
 			optr_1 = optr_2;
 			optr_2 = setAndFind(optr_1 + 1, 1, 1, 6);
 		}
@@ -570,6 +654,13 @@ void Expression::brackets()
 			expression = storeExpBracAf(optr_1a, optr_2a, expression_brackets, stringSizeAf);
 			optrDone = optrDoneAf + 1;
 			numOfOptr = numOfOptrAf;
+
+			if (optrDone != numOfOptr)
+			{
+				stringSize = calStringSize();
+				optr_1 = setAndFind(0, 1, 1, 5);
+				optr_2 = setAndFind(optr_1 + 1, 1, 1, 6);
+			}
 		}
 	}
 }

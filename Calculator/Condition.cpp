@@ -49,6 +49,10 @@ bool Condition::checkIfCondition(int i, char j)
 		return (j == '(' || j == ')');
 		break;
 
+	case 7:
+		return (j == ')');
+		break;
+
 	default:
 		MyIOError.error();
 		return 0;
