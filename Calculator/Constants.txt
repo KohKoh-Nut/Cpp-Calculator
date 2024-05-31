@@ -1,12 +1,12 @@
-﻿access with letters
-pi:(π)
-e:(e)
+access with letters
+pi:(π) = 3.14159265359
+e:(e) Euler's number = 2.718281828459
 
 access with specific code
-01: (mp) proton mass
-02: (mn) neutron mass
-03: (me) electron mass
-04: (mμ) muon mass
+01: (mp) proton mass = 1.67262192595e-27
+02: (mn) neutron mass = 1.67492750056e-27
+03: (me) electron mass = 9.1093837139e-31
+04: (mμ) muon mass = 1.883531627e-28
 05: (a0) Bohr radius
 06: (h) Planck constant
 07: (μN) nuclear magneton
