@@ -135,15 +135,31 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AddSub.cpp" />
+    <ClCompile Include="Brackets.cpp" />
     <ClCompile Include="Condition.cpp" />
+    <ClCompile Include="Count.cpp" />
     <ClCompile Include="Expression.cpp" />
+    <ClCompile Include="Format.cpp" />
     <ClCompile Include="IOError.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="MultDiv.cpp" />
+    <ClCompile Include="Orders.cpp" />
+    <ClCompile Include="Store.cpp" />
+    <ClCompile Include="Variables.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AddSub.h" />
+    <ClInclude Include="Brackets.h" />
     <ClInclude Include="Condition.h" />
+    <ClInclude Include="Count.h" />
     <ClInclude Include="Expression.h" />
+    <ClInclude Include="Format.h" />
     <ClInclude Include="IOError.h" />
+    <ClInclude Include="MultDiv.h" />
+    <ClInclude Include="Orders.h" />
+    <ClInclude Include="Store.h" />
+    <ClInclude Include="Variables.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Constants.txt" />
