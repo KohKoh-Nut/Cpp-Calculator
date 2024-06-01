@@ -1,28 +1,27 @@
 #include "Orders.h"
-#include "Variables.h"
 
 void Orders::doOrders()
 {
-	MyVariables.reset();
-	MyVariables.numOfOptr = MyVariables.MyCount.calNumOfOptr('^');
+	Variables::reset();
+	Variables::numOfOptr = Count::calNumOfOptr('^');
 
-	if (MyVariables.numOfOptr == 0)
+	if (Variables::numOfOptr == 0)
 		return;
 
-	for (MyVariables.optrDone = 0; MyVariables.optrDone < MyVariables.numOfOptr; MyVariables.optrDone++)
+	for (Variables::optrDone = 0; Variables::optrDone < Variables::numOfOptr; Variables::optrDone++)
 	{
-		MyVariables.stringSize = MyVariables.MyCount.calStringSize();
+		Variables::stringSize = Count::calStringSize();
 
-		MyVariables.optr_1 = MyVariables.MyExpression.setAndFind(0, 1, 1, 4);
-		MyVariables.optr_2 = MyVariables.MyExpression.setAndFind(MyVariables.optr_1 - 1, -1, 2, 1);
-		MyVariables.optr_3 = MyVariables.MyExpression.setAndFind(MyVariables.optr_1 + 1, 1, 1, 1);
+		Variables::optr_1 = Expression::setAndFind(0, 1, 1, 4);
+		Variables::optr_2 = Expression::setAndFind(Variables::optr_1 - 1, -1, 2, 1);
+		Variables::optr_3 = Expression::setAndFind(Variables::optr_1 + 1, 1, 1, 1);
 
 		std::string num1, num2;
-		num1 = MyVariables.MyStore.storeString(MyVariables.optr_2, MyVariables.optr_1);
-		num2 = MyVariables.MyStore.storeString(MyVariables.optr_1, MyVariables.optr_3);
+		num1 = Store::storeString(Variables::optr_2, Variables::optr_1);
+		num2 = Store::storeString(Variables::optr_1, Variables::optr_3);
 
-		std::string num3{ MyVariables.MyExpression.processOptr(num1, num2) };
+		std::string num3{ Expression::processOptr(num1, num2) };
 
-		MyVariables.MyStore.storeExp(MyVariables.optr_2, MyVariables.optr_3, num3);
+		Store::storeExp(Variables::optr_2, Variables::optr_3, num3);
 	}
 }

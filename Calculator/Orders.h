@@ -1,16 +1,17 @@
 #ifndef ORDERS_H
 #define ORDERS_H
 
+#include "Count.h"
+#include "Store.h"
+#include "Expression.h"
 #include "Variables.h"
 
 //a class to process orders
 class Orders
 {
 public:
-	Variables MyVariables;
-
 	//method to process orders 
-	void doOrders();
+	static void doOrders();
 };
 
 #endif

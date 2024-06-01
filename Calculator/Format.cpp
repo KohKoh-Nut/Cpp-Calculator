@@ -1,163 +1,165 @@
 #include "Format.h"
-#include "Variables.h"
 
 void Format::format()
 {
 	/* format front brackets */
 
-	int consOptrBracFroDone{}, numOfConsOptrFroBrac{ MyVariables.MyCount.calNumOfBracFroOptr() };
-	MyVariables.stringSize = MyVariables.MyCount.calStringSize();
+	int consOptrBracFroDone{}, numOfConsOptrFroBrac{ Count::calNumOfBracFroOptr() };
+	Variables::stringSize = Count::calStringSize();
 
 	for (; consOptrBracFroDone < numOfConsOptrFroBrac; consOptrBracFroDone++)
 	{
-		for (char i : MyVariables.expression)
+		for (char i : Variables::expression)
 		{
-			if (!MyVariables.MyCondition.checkIfCondition(1, i) && !MyVariables.MyCondition.checkIfCondition(5, i) && MyVariables.MyCondition.checkIfCondition(5, MyVariables.expression[MyVariables.posOfFor + 1]))
+			if (!Condition::checkIfCondition(1, i) && !Condition::checkIfCondition(5, i) && Condition::checkIfCondition(5, Variables::expression[Variables::posOfFor + 1]))
 			{
-				MyVariables.optr_1 = MyVariables.posOfFor;
-				MyVariables.optr_2 = MyVariables.posOfFor + 1;
+				Variables::optr_1 = Variables::posOfFor;
+				Variables::optr_2 = Variables::posOfFor + 1;
 
-				int posOfForA{ MyVariables.posOfFor };
-				MyVariables.MyStore.storeExpBracOptr(MyVariables.optr_1, MyVariables.optr_2);
-				MyVariables.posOfFor = posOfForA;
+				int posOfForA{ Variables::posOfFor };
+				Store::storeExpBracOptr(Variables::optr_1, Variables::optr_2);
+				Variables::posOfFor = posOfForA;
 				break;
 			}
-			else if (MyVariables.MyCondition.checkIfCondition(5, i) && MyVariables.MyCondition.checkIfCondition(5, MyVariables.expression[MyVariables.posOfFor + 1]))
+			else if (Condition::checkIfCondition(5, i) && Condition::checkIfCondition(5, Variables::expression[Variables::posOfFor + 1]))
 			{
-				MyVariables.optr_1 = MyVariables.posOfFor;
-				MyVariables.optr_2 = MyVariables.posOfFor + 1;
+				Variables::optr_1 = Variables::posOfFor;
+				Variables::optr_2 = Variables::posOfFor + 1;
 
-				int posOfForA{ MyVariables.posOfFor };
-				MyVariables.MyStore.storeExpConsBracOptr(MyVariables.optr_1, MyVariables.optr_2, 0);
-				MyVariables.posOfFor = posOfForA;
+				int posOfForA{ Variables::posOfFor };
+				Store::storeExpConsBracOptr(Variables::optr_1, Variables::optr_2, 0);
+				Variables::posOfFor = posOfForA;
 				break;
 			}
 
-			MyVariables.posOfFor++;
+			Variables::posOfFor++;
 		}
 	}
 
 	/* format back brackets */
 
-	int consOptrBracBacDone{}, numOfConsOptrBacBrac{ MyVariables.MyCount.calNumOfBracBacOptr() };
-	MyVariables.stringSize = MyVariables.MyCount.calStringSize();
+	int consOptrBracBacDone{}, numOfConsOptrBacBrac{ Count::calNumOfBracBacOptr() };
+	Variables::stringSize = Count::calStringSize();
 
 	for (; consOptrBracBacDone < numOfConsOptrBacBrac; consOptrBracBacDone++)
 	{
-		for (char i : MyVariables.expression)
+		for (char i : Variables::expression)
 		{
-			if (MyVariables.MyCondition.checkIfCondition(7, i) && !MyVariables.MyCondition.checkIfCondition(1, MyVariables.expression[MyVariables.posOfFor + 1]) && !MyVariables.MyCondition.checkIfCondition(7, MyVariables.expression[MyVariables.posOfFor + 1]))
+			if (Condition::checkIfCondition(7, i) && !Condition::checkIfCondition(1, Variables::expression[Variables::posOfFor + 1]) && !Condition::checkIfCondition(7, Variables::expression[Variables::posOfFor + 1]))
 			{
-				MyVariables.optr_1 = MyVariables.posOfFor;
-				MyVariables.optr_2 = MyVariables.posOfFor + 1;
+				Variables::optr_1 = Variables::posOfFor;
+				Variables::optr_2 = Variables::posOfFor + 1;
 
-				int posOfForA{ MyVariables.posOfFor };
-				MyVariables.MyStore.storeExpBracOptr(MyVariables.optr_1, MyVariables.optr_2);
-				MyVariables.posOfFor = posOfForA;
+				int posOfForA{ Variables::posOfFor };
+				Store::storeExpBracOptr(Variables::optr_1, Variables::optr_2);
+				Variables::posOfFor = posOfForA;
 				break;
 			}
-			else if (MyVariables.MyCondition.checkIfCondition(7, i) && MyVariables.MyCondition.checkIfCondition(7, MyVariables.expression[MyVariables.posOfFor + 1]))
+			else if (Condition::checkIfCondition(7, i) && Condition::checkIfCondition(7, Variables::expression[Variables::posOfFor + 1]))
 			{
-				MyVariables.optr_1 = MyVariables.posOfFor;
-				MyVariables.optr_2 = MyVariables.posOfFor + 1;
+				Variables::optr_1 = Variables::posOfFor;
+				Variables::optr_2 = Variables::posOfFor + 1;
 
-				int posOfForA{ MyVariables.posOfFor };
-				MyVariables.MyStore.storeExpConsBracOptr(MyVariables.optr_1, MyVariables.optr_2, 1);
-				MyVariables.posOfFor = posOfForA;
+				int posOfForA{ Variables::posOfFor };
+				Store::storeExpConsBracOptr(Variables::optr_1, Variables::optr_2, 1);
+				Variables::posOfFor = posOfForA;
 				break;
 			}
 
-			MyVariables.posOfFor++;
+			Variables::posOfFor++;
 		}
 	}
 
 	/* format the signs after * and / */
 
-	int consOptrMultDivDone{}, numOfConsOptrMultDiv{ MyVariables.MyCount.calNumOfConsOptr(3) };
-	MyVariables.stringSize = MyVariables.MyCount.calStringSize();
+	int consOptrMultDivDone{}, numOfConsOptrMultDiv{ Count::calNumOfConsOptr(3) };
+	Variables::stringSize = Count::calStringSize();
 
 	for (; consOptrMultDivDone < numOfConsOptrMultDiv; consOptrMultDivDone++)
 	{
-		for (char i : MyVariables.expression)
+		for (; Condition::checkForCondition(1); Variables::posOfFor++)
 		{
-			if (MyVariables.MyCondition.checkIfCondition(3, i) && MyVariables.MyCondition.checkIfCondition(2, MyVariables.expression[MyVariables.posOfFor + 1]))
+			if (Condition::checkIfCondition(3, Variables::expression[Variables::posOfFor]) && Condition::checkIfCondition(2, Variables::expression[Variables::posOfFor + 1]))
 			{
-				MyVariables.optr_1 = MyVariables.posOfFor;
-				MyVariables.optr_2 = MyVariables.MyExpression.setAndFind(MyVariables.optr_1 - 1, -1, 2, 1);
-				MyVariables.optr_3 = MyVariables.posOfFor + 1;
+				Variables::optr_1 = Variables::posOfFor;
+				Variables::optr_3 = Variables::posOfFor + 1;
+				Variables::optr_2 = Expression::setAndFind(Variables::optr_1 - 1, -1, 2, 1);
 
-				MyVariables.MyStore.storeExpConsMultDivOrders(MyVariables.optr_2, MyVariables.optr_3, 0);
+				int posOfForA{ Variables::posOfFor };
+				Store::storeExpConsMultDivOrders(Variables::optr_2, Variables::optr_3, 0);
+				Variables::posOfFor = posOfForA;
 				break;
 			}
-
-			MyVariables.posOfFor++;
 		}
 	}
 
-	int consOptrDone{}, numOfConsOptr{ MyVariables.MyCount.calNumOfConsOptr(2) };
+	/* formatting the original expression by processing the consecutive signs */
+
+	int consOptrDone{}, numOfConsOptr{ Count::calNumOfConsOptr(2) };
 	int j{};
 
-	/* formatting the original expression by processing the consecutive signs */
+	Variables::reset();
+
 	for (; consOptrDone < numOfConsOptr;)
 	{
-		MyVariables.reset();
-		MyVariables.stringSize = MyVariables.MyCount.calStringSize();
+		Variables::resetPOF();
+		Variables::stringSize = Count::calStringSize();
 		if (j == 0)
 		{
-			consOptrDone = forLoopAddSubFormat(MyVariables.optr_1, MyVariables.optr_2, 0, consOptrDone);
+			consOptrDone = forLoopAddSubFormat(Variables::optr_1, Variables::optr_2, 0, consOptrDone);
 			j = 1;
 		}
 		else if (j == 1)
 		{
-			consOptrDone = forLoopAddSubFormat(MyVariables.optr_2, MyVariables.optr_1, 1, consOptrDone);
+			consOptrDone = forLoopAddSubFormat(Variables::optr_2, Variables::optr_1, 1, consOptrDone);
 			j = 0;
 		}
 	}
 
-	int consOptrOrdersDone{}, numOfConsOptrOrders{ MyVariables.MyCount.calNumOfConsOptr(4) };
-	MyVariables.stringSize = MyVariables.MyCount.calStringSize();
-
 	/* format the signs after ^ */
+
+	int consOptrOrdersDone{}, numOfConsOptrOrders{ Count::calNumOfConsOptr(4) };
+	Variables::stringSize = Count::calStringSize();
+
 	for (; consOptrOrdersDone < numOfConsOptrOrders; consOptrOrdersDone++)
 	{
-		for (char i : MyVariables.expression)
+		for (; Condition::checkForCondition(1); Variables::posOfFor++)
 		{
-			if (MyVariables.MyCondition.checkIfCondition(4, i) && MyVariables.MyCondition.checkIfCondition(2, MyVariables.expression[MyVariables.posOfFor + 1]))
+			if (Condition::checkIfCondition(4, Variables::expression[Variables::posOfFor]) && Condition::checkIfCondition(2, Variables::expression[Variables::posOfFor + 1]))
 			{
-				MyVariables.optr_1 = MyVariables.posOfFor;
-				MyVariables.optr_2 = MyVariables.MyExpression.setAndFind(MyVariables.optr_1 - 1, -1, 2, 1);
-				MyVariables.optr_3 = MyVariables.posOfFor + 1;
+				Variables::optr_1 = Variables::posOfFor;
+				Variables::optr_3 = Variables::posOfFor + 1;
+				Variables::optr_2 = Expression::setAndFind(Variables::optr_1 - 1, -1, 2, 1);
 
-				MyVariables.MyStore.storeExpConsMultDivOrders(MyVariables.optr_2, MyVariables.optr_3, 1);
+				int posOfForA{ Variables::posOfFor };
+				Store::storeExpConsMultDivOrders(Variables::optr_2, Variables::optr_3, 1);
+				Variables::posOfFor = posOfForA;
 				break;
 			}
-
-			MyVariables.posOfFor++;
 		}
 	}
 }
 
 int Format::forLoopAddSubFormat(int optr_1a, int optr_2a, int mode, int consOptrDone)
 {
-	MyVariables.MyAddSub.optrAddSub(optr_1a, optr_2a, mode);
+	AddSub::optrAddSub(optr_1a, optr_2a, mode);
 
 	if (mode == 0)
 	{
-		optr_1a = MyVariables.optr_1;
-		optr_2a = MyVariables.optr_2;
+		optr_1a = Variables::optr_1;
+		optr_2a = Variables::optr_2;
 	}
 	else if (mode == 1)
 	{
-		optr_2a = MyVariables.optr_1;
-		optr_1a = MyVariables.optr_2;
+		optr_2a = Variables::optr_1;
+		optr_1a = Variables::optr_2;
 	}
 
 	if (optr_1a == optr_2a - 1)
 	{
-		MyVariables.MyStore.storeExpCons(optr_1a, optr_2a);
+		Store::storeExpCons(optr_1a, optr_2a);
 		return consOptrDone + 1;
 	}
 
-	MyVariables.MyIOError.error();
-	return 0;
+	return consOptrDone;
 }

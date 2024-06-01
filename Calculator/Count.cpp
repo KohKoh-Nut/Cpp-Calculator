@@ -1,17 +1,16 @@
 #include "Count.h"
-#include "Variables.h"
 
 int Count::calNumOfOptr(char optr)
 {
-	MyVariables.resetPOF();
+	Variables::resetPOF();
 	int numOfOptr{};
 
-	for (char i : MyVariables.expression)
+	for (char i : Variables::expression)
 	{
 		if (i == optr)
 			numOfOptr++;
 
-		MyVariables.posOfFor++;
+		Variables::posOfFor++;
 	}
 
 	return numOfOptr;
@@ -19,15 +18,15 @@ int Count::calNumOfOptr(char optr)
 
 int Count::calNumOfConsOptr(int j)
 {
-	MyVariables.resetPOF();
+	Variables::resetPOF();
 	int numOfConsOptr{};
 
-	for (char i : MyVariables.expression)
+	for (char i : Variables::expression)
 	{
-		if (MyVariables.MyCondition.checkIfCondition(j, i) && MyVariables.MyCondition.checkIfCondition(2, MyVariables.expression[MyVariables.posOfFor + 1]))
+		if (Condition::checkIfCondition(j, i) && Condition::checkIfCondition(2, Variables::expression[Variables::posOfFor + 1]))
 			numOfConsOptr++;
 
-		MyVariables.posOfFor++;
+		Variables::posOfFor++;
 	}
 
 	return numOfConsOptr;
@@ -35,15 +34,15 @@ int Count::calNumOfConsOptr(int j)
 
 int Count::calNumOfBracFroOptr()
 {
-	MyVariables.resetPOF();
+	Variables::resetPOF();
 	int numOfBracOptr{};
 
-	for (char i : MyVariables.expression)
+	for (char i : Variables::expression)
 	{
-		if (!MyVariables.MyCondition.checkIfCondition(1, i) && MyVariables.MyCondition.checkIfCondition(5, MyVariables.expression[MyVariables.posOfFor + 1]))
+		if (!Condition::checkIfCondition(1, i) && Condition::checkIfCondition(5, Variables::expression[Variables::posOfFor + 1]))
 			numOfBracOptr++;
 
-		MyVariables.posOfFor++;
+		Variables::posOfFor++;
 	}
 
 	return numOfBracOptr;
@@ -52,21 +51,21 @@ int Count::calNumOfBracFroOptr()
 int Count::calNumOfBracBacOptr()
 {
 	int numOfBracOptr{}, j{};
-	MyVariables.posOfFor = 1;
+	Variables::posOfFor = 1;
 
-	for (char i : MyVariables.expression)
+	for (char i : Variables::expression)
 	{
-		if (MyVariables.MyCondition.checkIfCondition(7, MyVariables.expression[MyVariables.posOfFor - 1]) && !MyVariables.MyCondition.checkIfCondition(1, i))
+		if (Condition::checkIfCondition(7, Variables::expression[Variables::posOfFor - 1]) && !Condition::checkIfCondition(1, i))
 			numOfBracOptr++;
 
 		//prevent the detection of back brackets being the first element of the string
 		if (j == 0)
 		{
-			MyVariables.posOfFor--;
+			Variables::posOfFor--;
 			j++;
 		}
 
-		MyVariables.posOfFor++;
+		Variables::posOfFor++;
 	}
 
 	return numOfBracOptr;
@@ -74,11 +73,11 @@ int Count::calNumOfBracBacOptr()
 
 int Count::calStringSize()
 {
-	MyVariables.resetPOF();
+	Variables::resetPOF();
 	int stringSize{ -1 };
 
 	//find the size of the expression
-	for (char i : MyVariables.expression)
+	for (char i : Variables::expression)
 		stringSize++;
 
 	return stringSize;

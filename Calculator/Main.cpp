@@ -1,14 +1,12 @@
-#include "Variables.h"
+#include "Expression.h"
 #include <iostream>
 
 int main()
 {
 	std::cout << "This is a calculator.\n";
 
-	Variables MyVariables;
-
 	//get expression from user and output the result
-	MyVariables.MyExpression.evaluate();
+	Expression::evaluate();
 
 	return 0;
 }

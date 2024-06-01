@@ -1,16 +1,21 @@
 #ifndef BRACKETS_H
 #define BRACKETS_H
 
+#include "Count.h"
+#include "Store.h"
+#include "Expression.h"
+#include "AddSub.h"
+#include "MultDiv.h"
+#include "Orders.h"
+#include "Format.h"
 #include "Variables.h"
 
 //a class to process brackets
 class Brackets
 {
 public:
-	Variables MyVariables;
-
 	//method to process brackets
-	void doBrackets();
+	static void doBrackets();
 };
 
 #endif

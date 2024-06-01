@@ -3,21 +3,20 @@
 
 #include "Variables.h"
 #include <string>
+#include <iostream>
 
 //a class for taking input, output result and detecting error
 class IOError
 {
 public:
-	Variables MyVariables;
-
 	//method to get input from user
-	std::string input();
+	static std::string input();
 
 	//method to output the result
-	void output();
+	static void output();
 
 	//method to detect error and stop execution
-	void error();
+	static void error();
 };
 
 #endif

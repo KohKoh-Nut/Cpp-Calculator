@@ -1,5 +1,4 @@
 #include "Store.h"
-#include "Variables.h"
 
 void Store::storeExp(int optr_bef, int optr_af, std::string num)
 {
@@ -7,98 +6,98 @@ void Store::storeExp(int optr_bef, int optr_af, std::string num)
 	std::string expMultDiv;
 
 	//the process of storing the new expression
-	for (MyVariables.posOfFor = 0; MyVariables.posOfFor <= optr_bef; MyVariables.posOfFor++)
-		expMultDiv += MyVariables.expression[MyVariables.posOfFor];
+	for (Variables::posOfFor = 0; Variables::posOfFor <= optr_bef; Variables::posOfFor++)
+		expMultDiv += Variables::expression[Variables::posOfFor];
 
 	expMultDiv += num;
 
-	for (MyVariables.posOfFor = optr_af; MyVariables.posOfFor <= MyVariables.stringSize; MyVariables.posOfFor++)
-		expMultDiv += MyVariables.expression[MyVariables.posOfFor];
+	for (Variables::posOfFor = optr_af; Variables::posOfFor <= Variables::stringSize; Variables::posOfFor++)
+		expMultDiv += Variables::expression[Variables::posOfFor];
 
 	//putting the new expression back to expression for further evaluation
-	MyVariables.expression = expMultDiv;
+	Variables::expression = expMultDiv;
 }
 
 void Store::storeExpCons(int optr_bef, int optr_af)
 {
 	std::string expCons;
 
-	for (MyVariables.posOfFor = 0; MyVariables.posOfFor < optr_bef; MyVariables.posOfFor++)
-		expCons += MyVariables.expression[MyVariables.posOfFor];
+	for (Variables::posOfFor = 0; Variables::posOfFor < optr_bef; Variables::posOfFor++)
+		expCons += Variables::expression[Variables::posOfFor];
 
-	if (MyVariables.expression[optr_bef] == '-' && MyVariables.expression[optr_af] == '-'
-		|| MyVariables.expression[optr_bef] == '+' && MyVariables.expression[optr_af] == '+')
+	if (Variables::expression[optr_bef] == '-' && Variables::expression[optr_af] == '-'
+		|| Variables::expression[optr_bef] == '+' && Variables::expression[optr_af] == '+')
 		expCons += '+';
-	else if (MyVariables.expression[optr_bef] == '+' && MyVariables.expression[optr_af] == '-'
-		|| MyVariables.expression[optr_bef] == '-' && MyVariables.expression[optr_af] == '+')
+	else if (Variables::expression[optr_bef] == '+' && Variables::expression[optr_af] == '-'
+		|| Variables::expression[optr_bef] == '-' && Variables::expression[optr_af] == '+')
 		expCons += '-';
 
-	for (MyVariables.posOfFor = optr_af + 1; MyVariables.posOfFor <= MyVariables.stringSize; MyVariables.posOfFor++)
-		expCons += MyVariables.expression[MyVariables.posOfFor];
+	for (Variables::posOfFor = optr_af + 1; Variables::posOfFor <= Variables::stringSize; Variables::posOfFor++)
+		expCons += Variables::expression[Variables::posOfFor];
 
-	MyVariables.expression = expCons;
+	Variables::expression = expCons;
 }
 
 void Store::storeExpConsMultDivOrders(int optr_bef, int optr_af, int mode)
 {
 	std::string expConsMultDivOrders;
 
-	for (MyVariables.posOfFor = 0; MyVariables.posOfFor <= optr_bef; MyVariables.posOfFor++)
-		expConsMultDivOrders += MyVariables.expression[MyVariables.posOfFor];
+	for (Variables::posOfFor = 0; Variables::posOfFor <= optr_bef; Variables::posOfFor++)
+		expConsMultDivOrders += Variables::expression[Variables::posOfFor];
 
 	if (mode == 0)
-		expConsMultDivOrders += MyVariables.expression[optr_af];
+		expConsMultDivOrders += Variables::expression[optr_af];
 	else if (mode == 1)
 		expConsMultDivOrders += "1/";
 
-	for (; MyVariables.posOfFor < optr_af; MyVariables.posOfFor++)
-		expConsMultDivOrders += MyVariables.expression[MyVariables.posOfFor];
+	for (; Variables::posOfFor < optr_af; Variables::posOfFor++)
+		expConsMultDivOrders += Variables::expression[Variables::posOfFor];
 
-	for (MyVariables.posOfFor = optr_af + 1; MyVariables.posOfFor <= MyVariables.stringSize; MyVariables.posOfFor++)
-		expConsMultDivOrders += MyVariables.expression[MyVariables.posOfFor];
+	for (Variables::posOfFor = optr_af + 1; Variables::posOfFor <= Variables::stringSize; Variables::posOfFor++)
+		expConsMultDivOrders += Variables::expression[Variables::posOfFor];
 
-	MyVariables.expression = expConsMultDivOrders;
+	Variables::expression = expConsMultDivOrders;
 }
 
 void Store::storeExpBracOptr(int optr_bef, int optr_af)
 {
 	std::string expBrac;
 
-	for (MyVariables.posOfFor = 0; MyVariables.posOfFor <= optr_bef; MyVariables.posOfFor++)
-		expBrac += MyVariables.expression[MyVariables.posOfFor];
+	for (Variables::posOfFor = 0; Variables::posOfFor <= optr_bef; Variables::posOfFor++)
+		expBrac += Variables::expression[Variables::posOfFor];
 
 	expBrac += '*';
 
-	for (MyVariables.posOfFor = optr_af; MyVariables.posOfFor <= MyVariables.stringSize; MyVariables.posOfFor++)
-		expBrac += MyVariables.expression[MyVariables.posOfFor];
+	for (Variables::posOfFor = optr_af; Variables::posOfFor <= Variables::stringSize; Variables::posOfFor++)
+		expBrac += Variables::expression[Variables::posOfFor];
 
-	MyVariables.expression = expBrac;
+	Variables::expression = expBrac;
 }
 
 void Store::storeExpConsBracOptr(int optr_bef, int optr_af, int mode)
 {
 	std::string expBrac;
 
-	for (MyVariables.posOfFor = 0; MyVariables.posOfFor <= optr_bef; MyVariables.posOfFor++)
-		expBrac += MyVariables.expression[MyVariables.posOfFor];
+	for (Variables::posOfFor = 0; Variables::posOfFor <= optr_bef; Variables::posOfFor++)
+		expBrac += Variables::expression[Variables::posOfFor];
 
 	if (mode == 0)
 		expBrac += "1*";
 	else if (mode == 1)
 		expBrac += "*1";
 
-	for (MyVariables.posOfFor = optr_af; MyVariables.posOfFor <= MyVariables.stringSize; MyVariables.posOfFor++)
-		expBrac += MyVariables.expression[MyVariables.posOfFor];
+	for (Variables::posOfFor = optr_af; Variables::posOfFor <= Variables::stringSize; Variables::posOfFor++)
+		expBrac += Variables::expression[Variables::posOfFor];
 
-	MyVariables.expression = expBrac;
+	Variables::expression = expBrac;
 }
 
 std::string Store::storeExpBrac(int optr_bef, int optr_af)
 {
 	std::string expBrac;
 
-	for (MyVariables.posOfFor = optr_bef + 1; MyVariables.posOfFor < optr_af; MyVariables.posOfFor++)
-		expBrac += MyVariables.expression[MyVariables.posOfFor];
+	for (Variables::posOfFor = optr_bef + 1; Variables::posOfFor < optr_af; Variables::posOfFor++)
+		expBrac += Variables::expression[Variables::posOfFor];
 
 	return expBrac;
 }
@@ -107,14 +106,14 @@ std::string Store::storeExpBracAf(int optr_bef, int optr_af, std::string exp, in
 {
 	std::string expBracAf;
 
-	for (MyVariables.posOfFor = 0; MyVariables.posOfFor < optr_bef; MyVariables.posOfFor++)
-		expBracAf += exp[MyVariables.posOfFor];
+	for (Variables::posOfFor = 0; Variables::posOfFor < optr_bef; Variables::posOfFor++)
+		expBracAf += exp[Variables::posOfFor];
 
-	expBracAf += std::to_string(MyVariables.resultBrac);
-	MyVariables.resultBrac = 0;
+	expBracAf += std::to_string(Variables::resultBrac);
+	Variables::resultBrac = 0;
 
-	for (MyVariables.posOfFor = optr_af + 1; MyVariables.posOfFor <= stringSizeAf; MyVariables.posOfFor++)
-		expBracAf += exp[MyVariables.posOfFor];
+	for (Variables::posOfFor = optr_af + 1; Variables::posOfFor <= stringSizeAf; Variables::posOfFor++)
+		expBracAf += exp[Variables::posOfFor];
 
 	return expBracAf;
 }
@@ -123,8 +122,8 @@ std::string Store::storeString(int optr_bef, int optr_af)
 {
 	std::string num;
 
-	for (MyVariables.posOfFor = optr_bef + 1; MyVariables.posOfFor < optr_af || MyVariables.posOfFor == MyVariables.stringSize; MyVariables.posOfFor++)
-		num += MyVariables.expression[MyVariables.posOfFor];
+	for (Variables::posOfFor = optr_bef + 1; Variables::posOfFor < optr_af || Variables::posOfFor == Variables::stringSize; Variables::posOfFor++)
+		num += Variables::expression[Variables::posOfFor];
 
 	return num;
 }

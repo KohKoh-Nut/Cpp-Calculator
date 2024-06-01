@@ -1,21 +1,19 @@
 #include "Condition.h"
-#include "Variables.h"
-#include <iostream>
 
 bool Condition::checkForCondition(int i)
 {
 	switch (i)
 	{
 	case 1:
-		return MyVariables.posOfFor <= MyVariables.stringSize;
+		return Variables::posOfFor <= Variables::stringSize;
 		break;
 			
 	case 2:
-		return MyVariables.posOfFor >= 0;
+		return Variables::posOfFor >= 0;
 		break;
 
 	default:
-		MyVariables.MyIOError.error();
+		IOError::error();
 		return 0;
 		break;
 	}
@@ -54,7 +52,7 @@ bool Condition::checkIfCondition(int i, char j)
 		break;
 
 	default:
-		MyVariables.MyIOError.error();
+		IOError::error();
 		return 0;
 		break;
 	}

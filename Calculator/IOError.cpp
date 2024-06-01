@@ -1,7 +1,4 @@
 #include "IOError.h"
-#include "Variables.h"
-#include <string>
-#include <iostream>
 
 std::string IOError::input()
 {
@@ -15,7 +12,7 @@ std::string IOError::input()
 
 void IOError::output()
 {
-	std::cout << MyVariables.result << '\n';
+	std::cout << Variables::result << '\n';
 }
 
 void IOError::error()
