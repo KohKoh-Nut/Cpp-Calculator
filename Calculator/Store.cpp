@@ -92,6 +92,19 @@ void Store::storeExpConsBracOptr(int optr_bef, int optr_af, int mode)
 	Variables::expression = expBrac;
 }
 
+void Store::storeExpBracOrdersOptr(int optr_bef, int optr_af)
+{
+	std::string expBrac;
+
+	for (Variables::posOfFor = 0; Variables::posOfFor <= optr_bef; Variables::posOfFor++)
+		expBrac += Variables::expression[Variables::posOfFor];
+
+	for (Variables::posOfFor = optr_af; Variables::posOfFor <= Variables::stringSize; Variables::posOfFor++)
+		expBrac += Variables::expression[Variables::posOfFor];
+
+	Variables::expression = expBrac;
+}
+
 std::string Store::storeExpBrac(int optr_bef, int optr_af)
 {
 	std::string expBrac;

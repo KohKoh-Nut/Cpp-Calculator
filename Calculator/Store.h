@@ -22,6 +22,9 @@ public:
 	//method to store new expression after formatting consecutive brackets
 	static void storeExpConsBracOptr(int optr_bef, int optr_af, int mode);
 
+	//method to store new expression after formatting brackets with orders right before
+	static void storeExpBracOrdersOptr(int optr_bef, int optr_af);
+
 	//method to store a sub-expression inside the brackets
 	static std::string storeExpBrac(int optr_bef, int optr_af);
 

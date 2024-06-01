@@ -11,7 +11,17 @@ void Format::format()
 	{
 		for (char i : Variables::expression)
 		{
-			if (!Condition::checkIfCondition(1, i) && !Condition::checkIfCondition(5, i) && Condition::checkIfCondition(5, Variables::expression[Variables::posOfFor + 1]))
+			if (Condition::checkIfCondition(4, i) && Condition::checkIfCondition(5, Variables::expression[Variables::posOfFor + 1]))
+			{
+				Variables::optr_1 = Variables::posOfFor;
+				Variables::optr_2 = Variables::posOfFor + 1;
+
+				int posOfForA{ Variables::posOfFor };
+				Store::storeExpBracOrdersOptr(Variables::optr_1, Variables::optr_2);
+				Variables::posOfFor = posOfForA;
+				break;
+			}
+			else if (!Condition::checkIfCondition(1, i) && !Condition::checkIfCondition(5, i) && Condition::checkIfCondition(5, Variables::expression[Variables::posOfFor + 1]))
 			{
 				Variables::optr_1 = Variables::posOfFor;
 				Variables::optr_2 = Variables::posOfFor + 1;
@@ -73,36 +83,42 @@ void Format::format()
 	/* format the signs after * and / */
 
 	int consOptrMultDivDone{}, numOfConsOptrMultDiv{ Count::calNumOfConsOptr(3) };
-	Variables::stringSize = Count::calStringSize();
 
-	for (; consOptrMultDivDone < numOfConsOptrMultDiv; consOptrMultDivDone++)
+	do
 	{
-		for (; Condition::checkForCondition(1); Variables::posOfFor++)
-		{
-			if (Condition::checkIfCondition(3, Variables::expression[Variables::posOfFor]) && Condition::checkIfCondition(2, Variables::expression[Variables::posOfFor + 1]))
-			{
-				Variables::optr_1 = Variables::posOfFor;
-				Variables::optr_3 = Variables::posOfFor + 1;
-				Variables::optr_2 = Expression::setAndFind(Variables::optr_1 - 1, -1, 2, 1);
+		Variables::stringSize = Count::calStringSize();
 
-				int posOfForA{ Variables::posOfFor };
-				Store::storeExpConsMultDivOrders(Variables::optr_2, Variables::optr_3, 0);
-				Variables::posOfFor = posOfForA;
-				break;
+		for (; consOptrMultDivDone < numOfConsOptrMultDiv; consOptrMultDivDone++)
+		{
+			for (; Condition::checkForCondition(1); Variables::posOfFor++)
+			{
+				if (Condition::checkIfCondition(3, Variables::expression[Variables::posOfFor]) && Condition::checkIfCondition(2, Variables::expression[Variables::posOfFor + 1]))
+				{
+					Variables::optr_1 = Variables::posOfFor;
+					Variables::optr_3 = Variables::posOfFor + 1;
+					Variables::optr_2 = Expression::setAndFind(Variables::optr_1 - 1, -1, 2, 1);
+
+					int posOfForA{ Variables::posOfFor };
+					Store::storeExpConsMultDivOrders(Variables::optr_2, Variables::optr_3, 0);
+					Variables::posOfFor = posOfForA;
+					break;
+				}
 			}
 		}
-	}
+
+		numOfConsOptrMultDiv = Count::calNumOfConsOptr(3);
+		consOptrMultDivDone = 0;
+	} 
+	while (numOfConsOptrMultDiv != 0);
 
 	/* formatting the original expression by processing the consecutive signs */
 
 	int consOptrDone{}, numOfConsOptr{ Count::calNumOfConsOptr(2) };
 	int j{};
 
-	Variables::reset();
-
 	for (; consOptrDone < numOfConsOptr;)
 	{
-		Variables::resetPOF();
+		Variables::reset();
 		Variables::stringSize = Count::calStringSize();
 		if (j == 0)
 		{
