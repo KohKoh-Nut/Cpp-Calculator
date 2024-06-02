@@ -16,14 +16,14 @@ int Count::calNumOfOptr(char optr)
 	return numOfOptr;
 }
 
-int Count::calNumOfConsOptr(int j)
+int Count::calNumOfConsOptr(int ifMode)
 {
 	Variables::resetPOF();
 	int numOfConsOptr{};
 
 	for (char i : Variables::expression)
 	{
-		if (Condition::checkIfCondition(j, i) && Condition::checkIfCondition(2, Variables::expression[Variables::posOfFor + 1]))
+		if (Condition::checkIfCondition(ifMode, i) && Condition::checkIfCondition(2, Variables::expression[Variables::posOfFor + 1]))
 			numOfConsOptr++;
 
 		Variables::posOfFor++;
@@ -52,7 +52,7 @@ int Count::calNumOfBracFroOptr()
 int Count::calNumOfBracBacOptr()
 {
 	Variables::posOfFor = 1;
-	int numOfBracOptr{}, j{};
+	int numOfBracOptr{}, firstBacBrac{};
 
 	for (char i : Variables::expression)
 	{
@@ -61,7 +61,7 @@ int Count::calNumOfBracBacOptr()
 			numOfBracOptr++;
 
 		//prevent the detection of back brackets being the first element of the string
-		j = bacBracFirst(j);
+		firstBacBrac = bacBracFirst(firstBacBrac);
 
 		Variables::posOfFor++;
 	}
@@ -69,15 +69,15 @@ int Count::calNumOfBracBacOptr()
 	return numOfBracOptr;
 }
 
-int Count::bacBracFirst(int j)
+int Count::bacBracFirst(int firstBacBrac)
 {
-	if (j == 0)
+	if (firstBacBrac == 0)
 	{
 		Variables::posOfFor--;
-		j++;
+		firstBacBrac++;
 	}
 
-	return j;
+	return firstBacBrac;
 }
 
 void Count::calStringSize()

@@ -63,22 +63,7 @@ void Store::storeExpFormConsMultDivOrders(int optr_bef, int optr_af, int mode)
 	Variables::expression = expConsMultDivOrders;
 }
 
-void Store::storeExpFormBracOptr(int optr_bef, int optr_af)
-{
-	std::string expBrac;
-
-	for (Variables::posOfFor = 0; Variables::posOfFor <= optr_bef; Variables::posOfFor++)
-		expBrac += Variables::expression[Variables::posOfFor];
-
-	expBrac += '*';
-
-	for (Variables::posOfFor = optr_af; Variables::posOfFor <= Variables::stringSize; Variables::posOfFor++)
-		expBrac += Variables::expression[Variables::posOfFor];
-
-	Variables::expression = expBrac;
-}
-
-void Store::storeExpFormConsBrac(int optr_bef, int optr_af, int mode)
+void Store::storeExpFormBrac(int optr_bef, int optr_af, int mode)
 {
 	std::string expBrac;
 
@@ -86,23 +71,12 @@ void Store::storeExpFormConsBrac(int optr_bef, int optr_af, int mode)
 		expBrac += Variables::expression[Variables::posOfFor];
 
 	if (mode == 0)
+		expBrac += '*';
+	if (mode == 1)
 		expBrac += "1*";
-	else if (mode == 1)
+	if (mode == 2)
 		expBrac += "*1";
-
-	for (Variables::posOfFor = optr_af; Variables::posOfFor <= Variables::stringSize; Variables::posOfFor++)
-		expBrac += Variables::expression[Variables::posOfFor];
-
-	Variables::expression = expBrac;
-}
-
-void Store::storeExpFormBracOrders(int optr_bef, int optr_af)
-{
-	std::string expBrac;
-
-	for (Variables::posOfFor = 0; Variables::posOfFor <= optr_bef; Variables::posOfFor++)
-		expBrac += Variables::expression[Variables::posOfFor];
-
+	
 	for (Variables::posOfFor = optr_af; Variables::posOfFor <= Variables::stringSize; Variables::posOfFor++)
 		expBrac += Variables::expression[Variables::posOfFor];
 
@@ -113,6 +87,7 @@ std::string Store::storeSubExpBrac(int optr_bef, int optr_af)
 {
 	std::string expBrac;
 
+	//storing the sub-expression
 	for (Variables::posOfFor = optr_bef + 1; Variables::posOfFor < optr_af; Variables::posOfFor++)
 		expBrac += Variables::expression[Variables::posOfFor];
 
@@ -123,19 +98,22 @@ std::string Store::storeSubExpBracResult(int optr_bef, int optr_af, std::string 
 {
 	std::string expBracAf;
 
+	//for loop until just before the front bracket
 	for (Variables::posOfFor = 0; Variables::posOfFor < optr_bef; Variables::posOfFor++)
 		expBracAf += exp[Variables::posOfFor];
 
+	//put in the result of the sub-expression
 	expBracAf += std::to_string(Variables::resultBrac);
-	Variables::resultBrac = 0;
+	Variables::resultBrac = 0; //resetting the result
 
+	//for loop starts from just after the back bracket
 	for (Variables::posOfFor = optr_af + 1; Variables::posOfFor <= stringSizeAf; Variables::posOfFor++)
 		expBracAf += exp[Variables::posOfFor];
 
 	return expBracAf;
 }
 
-void Store::storeMultDivOrders()
+void Store::storeEvaStrings()
 {
 	//storing the numbers as string
 	std::string num1, num2;
@@ -153,6 +131,7 @@ std::string Store::storeString(int optr_bef, int optr_af)
 {
 	std::string num;
 
+	//for loop to store the string between the operator before and the operator after
 	for (Variables::posOfFor = optr_bef + 1; Variables::posOfFor < optr_af || Variables::posOfFor == Variables::stringSize; Variables::posOfFor++)
 		num += Variables::expression[Variables::posOfFor];
 

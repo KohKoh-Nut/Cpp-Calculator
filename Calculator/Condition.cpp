@@ -1,8 +1,8 @@
 #include "Condition.h"
 
-bool Condition::checkForCondition(int i)
+bool Condition::checkForCondition(int mode)
 {
-	switch (i)
+	switch (mode)
 	{
 	case 1:
 		return Variables::posOfFor <= Variables::stringSize;
@@ -19,9 +19,9 @@ bool Condition::checkForCondition(int i)
 	}
 }
 
-bool Condition::checkIfCondition(int i, char j)
+bool Condition::checkIfCondition(int mode, char optr)
 {
-	switch (i)
+	switch (mode)
 	{
 	case 1:
 		return (j == '+' || j == '-' || j == '*' || j == '/' || j == '%');

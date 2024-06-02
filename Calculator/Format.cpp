@@ -25,7 +25,7 @@ void Format::formFroBrac()
 			{
 				setOptr();
 				int posOfForA{ Variables::posOfFor };
-				Store::storeExpFormBracOrders(Variables::optr_1, Variables::optr_2);
+				Store::storeExpFormBrac(Variables::optr_1, Variables::optr_2, -1);
 				Count::calStringSize();
 				Variables::posOfFor = posOfForA;
 				break;
@@ -38,7 +38,7 @@ void Format::formFroBrac()
 			{
 				setOptr();
 				int posOfForA{ Variables::posOfFor };
-				Store::storeExpFormBracOptr(Variables::optr_1, Variables::optr_2);
+				Store::storeExpFormBrac(Variables::optr_1, Variables::optr_2, 0);
 				Count::calStringSize();
 				Variables::posOfFor = posOfForA;
 				break;
@@ -50,7 +50,7 @@ void Format::formFroBrac()
 			{
 				setOptr();
 				int posOfForA{ Variables::posOfFor };
-				Store::storeExpFormConsBrac(Variables::optr_1, Variables::optr_2, 0);
+				Store::storeExpFormBrac(Variables::optr_1, Variables::optr_2, 1);
 				Count::calStringSize();
 				Variables::posOfFor = posOfForA;
 				break;
@@ -76,7 +76,7 @@ void Format::formBacBrac()
 			{
 				setOptr();
 				int posOfForA{ Variables::posOfFor };
-				Store::storeExpFormBracOptr(Variables::optr_1, Variables::optr_2);
+				Store::storeExpFormBrac(Variables::optr_1, Variables::optr_2, 0);
 				Count::calStringSize();
 				Variables::posOfFor = posOfForA;
 				break;
@@ -88,7 +88,7 @@ void Format::formBacBrac()
 			{
 				setOptr();
 				int posOfForA{ Variables::posOfFor };
-				Store::storeExpFormConsBrac(Variables::optr_1, Variables::optr_2, 1);
+				Store::storeExpFormBrac(Variables::optr_1, Variables::optr_2, 2);
 				Count::calStringSize();
 				Variables::posOfFor = posOfForA;
 				break;

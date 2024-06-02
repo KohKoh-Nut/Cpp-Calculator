@@ -9,9 +9,23 @@
 class Condition
 {
 public:
-	//check the condition for the method to find position of operator
-	static bool checkForCondition(int i);
-	static bool checkIfCondition(int i,char j);
+	/*	check the condition for the method to find position of operator
+		mode:
+		1: Variables::posOfFor <= Variables::stringSize
+		2: Variables::posOfFor >= 0	*/
+	static bool checkForCondition(int mode);
+
+	/*	check the condition for the method to find position of operator
+		mode:
+		1: + - * / %
+		2: + -
+		3: * / %
+		4: ^
+		5: (
+		6: ( )
+		7: )
+		optr: the operator to be checked*/
+	static bool checkIfCondition(int mode,char optr);
 };
 
 #endif

@@ -19,6 +19,6 @@ void MultDiv::multDiv()
 		Expression::findMultDivOrders(3);
 
 		//store the expression after the numbers being evaluated
-		Store::storeMultDivOrders();
+		Store::storeEvaStrings();
 	}
 }

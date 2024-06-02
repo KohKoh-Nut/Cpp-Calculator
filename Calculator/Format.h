@@ -25,9 +25,18 @@ public:
 	//method to set the positions of operator for the formatting of brackets
 	static void setOptr();
 
-	//method for the if repeating
+	/*	method for the if repeating
+		optr_1a: current operator
+		optr_2a: next operator
+		mode:
+		0 = 1st loop
+		1 = 2nd loop	*/
 	static int forLoopAddSubFormat(int optr_1a, int optr_2a, int mode, int consOptrDone);
 
+	/*	method for the if repeating
+		mode:
+		0: multiplication & division
+		1: orders	*/
 	static void forLoopMultDivOrdersFormat(int ifMode, int mode);
 };
 
