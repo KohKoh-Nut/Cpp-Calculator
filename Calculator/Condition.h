@@ -17,13 +17,10 @@ public:
 
 	/*	check the condition for the method to find position of operator
 		mode:
-		1: + - * / %
-		2: + -
-		3: * / %
-		4: ^
-		5: (
-		6: ( )
-		7: )
+		1: + - * / %	5: (
+		2: + -			6: ( )
+		3: * / %		7: )
+		4: ^			8: e
 		optr: the operator to be checked*/
 	static bool checkIfCondition(int mode,char optr);
 };

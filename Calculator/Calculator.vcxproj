@@ -138,6 +138,7 @@
     <ClCompile Include="AddSub.cpp" />
     <ClCompile Include="Brackets.cpp" />
     <ClCompile Include="Condition.cpp" />
+    <ClCompile Include="Constants.cpp" />
     <ClCompile Include="Count.cpp" />
     <ClCompile Include="Expression.cpp" />
     <ClCompile Include="Format.cpp" />
@@ -152,6 +153,7 @@
     <ClInclude Include="AddSub.h" />
     <ClInclude Include="Brackets.h" />
     <ClInclude Include="Condition.h" />
+    <ClInclude Include="Constants.h" />
     <ClInclude Include="Count.h" />
     <ClInclude Include="Expression.h" />
     <ClInclude Include="Format.h" />

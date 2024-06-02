@@ -16,6 +16,22 @@ int Count::calNumOfOptr(char optr)
 	return numOfOptr;
 }
 
+int Count::calNumOfDouble()
+{
+	Variables::resetPOF();
+	int numOfDouble{};
+
+	for (char i : Variables::expression)
+	{
+		if (Condition::checkIfCondition(8, i) && Condition::checkIfCondition(2, Variables::expression[Variables::posOfFor + 1]))
+			numOfDouble++;
+
+		Variables::posOfFor++;
+	}
+
+	return numOfDouble;
+}
+
 int Count::calNumOfConsOptr(int ifMode)
 {
 	Variables::resetPOF();

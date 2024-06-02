@@ -24,31 +24,35 @@ bool Condition::checkIfCondition(int mode, char optr)
 	switch (mode)
 	{
 	case 1:
-		return (j == '+' || j == '-' || j == '*' || j == '/' || j == '%');
+		return (optr == '+' || optr == '-' || optr == '*' || optr == '/' || optr == '%');
 		break;
 
 	case 2:
-		return (j == '+' || j == '-');
+		return (optr == '+' || optr == '-');
 		break;
 
 	case 3:
-		return (j == '*' || j == '/' || j == '%');
+		return (optr == '*' || optr == '/' || optr == '%');
 		break;
 
 	case 4:
-		return (j == '^');
+		return (optr == '^');
 		break;
 
 	case 5:
-		return (j == '(');
+		return (optr == '(');
 		break;
 
 	case 6:
-		return (j == '(' || j == ')');
+		return (optr == '(' || optr == ')');
 		break;
 
 	case 7:
-		return (j == ')');
+		return (optr == ')');
+		break;
+
+	case 8:
+		return (optr == 'e');
 		break;
 
 	default:

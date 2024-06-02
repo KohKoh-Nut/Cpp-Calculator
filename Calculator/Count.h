@@ -11,6 +11,8 @@ public:
 		optr: the operator to be counted	*/
 	static int calNumOfOptr(char optr);
 
+	static int calNumOfDouble();
+
 	//method to calculate number of consecutive operators for formatting the expression
 	static int calNumOfConsOptr(int ifMode);
 

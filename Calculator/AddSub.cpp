@@ -7,7 +7,7 @@ void AddSub::doAddSub(int brac)
 		Variables::expression = '+' + Variables::expression;
 
 	Variables::reset();
-	Variables::numOfOptr = Count::calNumOfOptr('+') + Count::calNumOfOptr('-');
+	Variables::numOfOptr = Count::calNumOfOptr('+') + Count::calNumOfOptr('-') - Count::calNumOfDouble();
 	Count::calStringSize();
 	int j{};
 

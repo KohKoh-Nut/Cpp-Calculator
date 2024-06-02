@@ -15,6 +15,12 @@ int Expression::find(int POForigin, int actAfterFor, int forMode, int ifmode)
 {
 	for (Variables::posOfFor = POForigin; Condition::checkForCondition(forMode); Variables::posOfFor += actAfterFor)
 	{
+		//detecting double
+		if (Variables::posOfFor != 0
+			&& Condition::checkIfCondition(8, Variables::expression[Variables::posOfFor - 1])
+			&& Condition::checkIfCondition(ifmode, Variables::expression[Variables::posOfFor]))
+			continue;
+
 		//detecting the last character of the expression
 		if (Variables::posOfFor == Variables::stringSize && ifmode != 6)
 			return Variables::stringSize + 1;
