@@ -1,5 +1,5 @@
 # Calculator
-A project for a scientific calculator.
+A project for a scientific calculator with loads of bug.
 
 ## Table of Contents
 * [Introduction](#introduction)
