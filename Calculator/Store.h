@@ -1,6 +1,7 @@
 #ifndef STORE_H
 #define STORE_H
 
+#include "Expression.h"
 #include "Variables.h"
 #include <string>
 
@@ -30,6 +31,9 @@ public:
 
 	//method to store a result inside the brackets
 	static std::string storeSubExpBracResult(int optr_bef, int optr_af, std::string exp, int stringSizeAf);
+
+	//method to store multiple strings
+	static void storeMultDivOrders();
 
 	//method to store string
 	static std::string storeString(int optr_bef, int optr_af);

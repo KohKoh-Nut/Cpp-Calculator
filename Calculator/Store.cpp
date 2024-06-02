@@ -47,14 +47,18 @@ void Store::storeExpFormConsMultDivOrders(int optr_bef, int optr_af, int mode)
 
 	if (mode == 0)
 		expConsMultDivOrders += Variables::expression[optr_af];
-	else if (mode == 1)
-		expConsMultDivOrders += "1/";
+	
+	if (mode == 1)
+		expConsMultDivOrders += "(1/";
 
 	for (; Variables::posOfFor < optr_af; Variables::posOfFor++)
 		expConsMultDivOrders += Variables::expression[Variables::posOfFor];
 
 	for (Variables::posOfFor = optr_af + 1; Variables::posOfFor <= Variables::stringSize; Variables::posOfFor++)
 		expConsMultDivOrders += Variables::expression[Variables::posOfFor];
+
+	if (mode == 1)
+		expConsMultDivOrders += ')';
 
 	Variables::expression = expConsMultDivOrders;
 }
@@ -129,6 +133,20 @@ std::string Store::storeSubExpBracResult(int optr_bef, int optr_af, std::string 
 		expBracAf += exp[Variables::posOfFor];
 
 	return expBracAf;
+}
+
+void Store::storeMultDivOrders()
+{
+	//storing the numbers as string
+	std::string num1, num2;
+	num1 = Store::storeString(Variables::optr_2, Variables::optr_1);
+	num2 = Store::storeString(Variables::optr_1, Variables::optr_3);
+
+	//converting the numbers to integer and evaluate
+	//then storing the result as a string
+	std::string num3{ Expression::processOptr(num1, num2) };
+
+	Store::storeExp(Variables::optr_2, Variables::optr_3, num3);
 }
 
 std::string Store::storeString(int optr_bef, int optr_af)

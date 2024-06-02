@@ -22,6 +22,9 @@ public:
 	//method to find the position of operator
 	static int find(int POForigin, int actAfterFor, int forMode, int ifmode);
 
+	//method to find the position of multiple operators
+	static void findMultDivOrders(int ifMode);
+
 	//method to take in numbers & operator and return an evaluated value
 	static std::string processOptr(std::string num1, std::string num2);
 };

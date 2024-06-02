@@ -12,16 +12,10 @@ void Orders::doOrders()
 	{
 		Count::calStringSize();
 
-		Variables::optr_1 = Expression::find(0, 1, 1, 4);
-		Variables::optr_2 = Expression::find(Variables::optr_1 - 1, -1, 2, 1);
-		Variables::optr_3 = Expression::find(Variables::optr_1 + 1, 1, 1, 1);
+		//find the positions of operator
+		Expression::findMultDivOrders(4);
 
-		std::string num1, num2;
-		num1 = Store::storeString(Variables::optr_2, Variables::optr_1);
-		num2 = Store::storeString(Variables::optr_1, Variables::optr_3);
-
-		std::string num3{ Expression::processOptr(num1, num2) };
-
-		Store::storeExp(Variables::optr_2, Variables::optr_3, num3);
+		//store the expression after the numbers being evaluated
+		Store::storeMultDivOrders();
 	}
 }

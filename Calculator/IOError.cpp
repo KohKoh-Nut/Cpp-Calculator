@@ -1,18 +1,14 @@
 #include "IOError.h"
 
-std::string IOError::input()
+void IOError::input()
 {
 	std::cout << "Enter an expression: ";
-
-	std::string expression;
-	std::cin >> expression;
-
-	return expression;
+	std::cin >> Variables::expression;
 }
 
 void IOError::output()
 {
-	std::cout << Variables::result << '\n';
+	std::cout << "Result: " << Variables::result << '\n';
 }
 
 void IOError::error()

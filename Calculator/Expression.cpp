@@ -2,7 +2,7 @@
 
 void Expression::evaluate()
 {
-	Variables::expression = IOError::input();
+	IOError::input();
 	Format::format();
 	Brackets::doBrackets();
 	Orders::doOrders();
@@ -29,6 +29,13 @@ int Expression::find(int POForigin, int actAfterFor, int forMode, int ifmode)
 
 	IOError::error();
 	return 0;
+}
+
+void Expression::findMultDivOrders(int ifMode)
+{
+	Variables::optr_1 = Expression::find(0, 1, 1, ifMode); //find the position of operator
+	Variables::optr_2 = Expression::find(Variables::optr_1 - 1, -1, 2, 1); //find the position of operator before
+	Variables::optr_3 = Expression::find(Variables::optr_1 + 1, 1, 1, 1); //find the position of operator after
 }
 
 std::string Expression::processOptr(std::string num1, std::string num2)

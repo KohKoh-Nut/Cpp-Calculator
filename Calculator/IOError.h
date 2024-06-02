@@ -10,7 +10,7 @@ class IOError
 {
 public:
 	//method to get input from user
-	static std::string input();
+	static void input();
 
 	//method to output the result
 	static void output();
