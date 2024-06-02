@@ -28,7 +28,7 @@ It's currently only workable in console, but there're potential uses like combin
 2. Get the result.<br />
    ![image](https://github.com/KohKoh-Nut/Cpp-Calculator/assets/166701768/8788564e-bc5f-4979-b078-2c2e8762f3bc)
 ### Expression Rule
-* Consecutive + and - signs are acceptable.<br />
+* Consecutive **\+ and -** signs are acceptable.<br />
 ![image](https://github.com/KohKoh-Nut/Cpp-Calculator/assets/166701768/4e488df8-c6e2-40d8-ba5c-6b071fe199ea)
 * **\+ and -** signs after **\* or / or %** are acceptable.<br />
 ![image](https://github.com/KohKoh-Nut/Cpp-Calculator/assets/166701768/db3139e1-86c6-470b-8276-20199e46a5c1)
