@@ -11,9 +11,9 @@ public:
 	static int numOfOptr, optrDone; //number of operators
 	static int optr_1, optr_2, optr_3; //position of operators
 
-	static double result; //the result evaluated from the expression
+	static long double result; //the result evaluated from the expression
 
-	static double resultBrac;//the result evaluated from the sub-expression
+	static long double resultBrac;//the result evaluated from the sub-expression
 
 	static std::string expression;//the string for expression
 

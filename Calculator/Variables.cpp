@@ -8,8 +8,8 @@ int Variables::optr_1;
 int Variables::optr_2;
 int Variables::optr_3;
 
-double Variables::result;
-double Variables::resultBrac;
+long double Variables::result;
+long double Variables::resultBrac;
 
 std::string Variables::expression;
 

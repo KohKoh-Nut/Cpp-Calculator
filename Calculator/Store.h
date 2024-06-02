@@ -3,6 +3,8 @@
 
 #include "Expression.h"
 #include "Variables.h"
+#include <iomanip>
+#include <sstream>
 #include <string>
 
 class Store

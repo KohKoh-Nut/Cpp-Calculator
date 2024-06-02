@@ -46,25 +46,25 @@ void Expression::findMultDivOrders(int ifMode)
 
 std::string Expression::processOptr(std::string num1, std::string num2)
 {
-	std::string numResult;
+	long double numResult{};
 	
 	//take the arguments and evaluate the numbers
 	switch (Variables::expression[Variables::optr_1])
 	{
 	case '*':
-		numResult = std::to_string(std::stod(num1) * std::stod(num2));
+		numResult = std::stold(num1) * std::stold(num2);
 		break;
 
 	case '/':
-		numResult = std::to_string(std::stod(num1) / std::stod(num2));
+		numResult = std::stold(num1) / std::stold(num2);
 		break;
 
 	case '%':
-		numResult = std::to_string(std::stoi(num1) % std::stoi(num2));
+		numResult = std::stoi(num1) % std::stoi(num2);
 		break;
 
 	case '^':
-		numResult = std::to_string(pow(std::stod(num1), std::stod(num2)));
+		numResult = pow(std::stold(num1), std::stold(num2));
 		break;
 
 	default:
@@ -72,5 +72,9 @@ std::string Expression::processOptr(std::string num1, std::string num2)
 		break;
 	}
 
-	return numResult;
+	//for the precision of small number
+	std::ostringstream result;
+	result << std::setprecision(100) << numResult;
+
+	return result.str();
 }

@@ -102,9 +102,13 @@ std::string Store::storeSubExpBracResult(int optr_bef, int optr_af, std::string 
 	//for loop until just before the front bracket
 	for (Variables::posOfFor = 0; Variables::posOfFor < optr_bef; Variables::posOfFor++)
 		expBracAf += exp[Variables::posOfFor];
+	
+	//for the precision of small number
+	std::ostringstream result;
+	result << std::setprecision(100) << Variables::resultBrac;
 
 	//put in the result of the sub-expression
-	expBracAf += std::to_string(Variables::resultBrac);
+	expBracAf += result.str();
 	Variables::resultBrac = 0; //resetting the result
 
 	//for loop starts from just after the back bracket
@@ -142,9 +146,9 @@ std::string Store::storeString(int optr_bef, int optr_af)
 double Store::storeResult(double result, char optr, std::string num)
 {
 	if (optr == '+')
-		result += std::stod(num);
+		result += std::stold(num);
 	else if (optr == '-')
-		result -= std::stod(num);
+		result -= std::stold(num);
 
 	return result;
 }

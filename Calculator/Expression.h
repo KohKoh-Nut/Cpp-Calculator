@@ -9,6 +9,8 @@
 #include "Orders.h"
 #include "Format.h"
 #include "Variables.h"
+#include <iomanip>
+#include <sstream>
 #include <string>
 #include <iostream>
 
