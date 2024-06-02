@@ -25,6 +25,7 @@ void Store::storeExpFormConsNegatives(int optr_bef, int optr_af)
 	for (Variables::posOfFor = 0; Variables::posOfFor < optr_bef; Variables::posOfFor++)
 		expCons += Variables::expression[Variables::posOfFor];
 
+	//applying the rule of two negatives get a positive
 	if (Variables::expression[optr_bef] == '-' && Variables::expression[optr_af] == '-'
 		|| Variables::expression[optr_bef] == '+' && Variables::expression[optr_af] == '+')
 		expCons += '+';
@@ -45,10 +46,10 @@ void Store::storeExpFormConsMultDivOrders(int optr_bef, int optr_af, int mode)
 	for (Variables::posOfFor = 0; Variables::posOfFor <= optr_bef; Variables::posOfFor++)
 		expConsMultDivOrders += Variables::expression[Variables::posOfFor];
 
-	if (mode == 0)
+	if (mode == 0) //multiplication and division
 		expConsMultDivOrders += Variables::expression[optr_af];
 	
-	if (mode == 1)
+	if (mode == 1) //orders
 		expConsMultDivOrders += "(1/";
 
 	for (; Variables::posOfFor < optr_af; Variables::posOfFor++)
@@ -70,11 +71,11 @@ void Store::storeExpFormBrac(int optr_bef, int optr_af, int mode)
 	for (Variables::posOfFor = 0; Variables::posOfFor <= optr_bef; Variables::posOfFor++)
 		expBrac += Variables::expression[Variables::posOfFor];
 
-	if (mode == 0)
+	if (mode == 0) //brackets without operator
 		expBrac += '*';
-	if (mode == 1)
+	if (mode == 1) //consecutive front brackets
 		expBrac += "1*";
-	if (mode == 2)
+	if (mode == 2) //consecutive back brackets
 		expBrac += "*1";
 	
 	for (Variables::posOfFor = optr_af; Variables::posOfFor <= Variables::stringSize; Variables::posOfFor++)

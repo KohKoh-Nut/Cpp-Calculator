@@ -14,7 +14,10 @@ public:
 	//method to store new expression after formatting two consecutive negatives
 	static void storeExpFormConsNegatives(int optr_bef, int optr_af);
 
-	//method to store new expression after formatting signs right after * & / & ^
+	/*	method to store new expression after formatting signs right after * & / & ^
+		mode:
+		0: multiplication and division
+		1: orders	*/
 	static void storeExpFormConsMultDivOrders(int optr_bef, int optr_af, int mode);
 
 	/*	method to store new expression after formatting brackets
@@ -37,7 +40,10 @@ public:
 	//method to store string
 	static std::string storeString(int optr_bef, int optr_af);
 
-	//method to store result
+	/*	method to store result
+		result: variable to store to
+		optr: the operator + or - 
+		num: the number to be stored	*/
 	static double storeResult(double result, char optr, std::string num);
 };
 
