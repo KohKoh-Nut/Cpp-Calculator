@@ -18,7 +18,7 @@ void Store::storeExp(int optr_bef, int optr_af, std::string num)
 	Variables::expression = expMultDiv;
 }
 
-void Store::storeExpCons(int optr_bef, int optr_af)
+void Store::storeExpFormConsNegatives(int optr_bef, int optr_af)
 {
 	std::string expCons;
 
@@ -38,7 +38,7 @@ void Store::storeExpCons(int optr_bef, int optr_af)
 	Variables::expression = expCons;
 }
 
-void Store::storeExpConsMultDivOrders(int optr_bef, int optr_af, int mode)
+void Store::storeExpFormConsMultDivOrders(int optr_bef, int optr_af, int mode)
 {
 	std::string expConsMultDivOrders;
 
@@ -59,7 +59,7 @@ void Store::storeExpConsMultDivOrders(int optr_bef, int optr_af, int mode)
 	Variables::expression = expConsMultDivOrders;
 }
 
-void Store::storeExpBracOptr(int optr_bef, int optr_af)
+void Store::storeExpFormBracOptr(int optr_bef, int optr_af)
 {
 	std::string expBrac;
 
@@ -74,7 +74,7 @@ void Store::storeExpBracOptr(int optr_bef, int optr_af)
 	Variables::expression = expBrac;
 }
 
-void Store::storeExpConsBracOptr(int optr_bef, int optr_af, int mode)
+void Store::storeExpFormConsBrac(int optr_bef, int optr_af, int mode)
 {
 	std::string expBrac;
 
@@ -92,7 +92,7 @@ void Store::storeExpConsBracOptr(int optr_bef, int optr_af, int mode)
 	Variables::expression = expBrac;
 }
 
-void Store::storeExpBracOrdersOptr(int optr_bef, int optr_af)
+void Store::storeExpFormBracOrders(int optr_bef, int optr_af)
 {
 	std::string expBrac;
 
@@ -105,7 +105,7 @@ void Store::storeExpBracOrdersOptr(int optr_bef, int optr_af)
 	Variables::expression = expBrac;
 }
 
-std::string Store::storeExpBrac(int optr_bef, int optr_af)
+std::string Store::storeSubExpBrac(int optr_bef, int optr_af)
 {
 	std::string expBrac;
 
@@ -115,7 +115,7 @@ std::string Store::storeExpBrac(int optr_bef, int optr_af)
 	return expBrac;
 }
 
-std::string Store::storeExpBracAf(int optr_bef, int optr_af, std::string exp, int stringSizeAf)
+std::string Store::storeSubExpBracResult(int optr_bef, int optr_af, std::string exp, int stringSizeAf)
 {
 	std::string expBracAf;
 
@@ -139,4 +139,14 @@ std::string Store::storeString(int optr_bef, int optr_af)
 		num += Variables::expression[Variables::posOfFor];
 
 	return num;
+}
+
+double Store::storeResult(double result, char optr, std::string num)
+{
+	if (optr == '+')
+		result += std::stod(num);
+	else if (optr == '-')
+		result -= std::stod(num);
+
+	return result;
 }

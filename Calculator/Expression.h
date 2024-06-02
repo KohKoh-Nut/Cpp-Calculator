@@ -20,7 +20,7 @@ public:
 	static void evaluate();
 
 	//method to find the position of operator
-	static int setAndFind(int POForigin, int actAfterFor, int forMode, int ifmode);
+	static int find(int POForigin, int actAfterFor, int forMode, int ifmode);
 
 	//method to take in numbers & operator and return an evaluated value
 	static std::string processOptr(std::string num1, std::string num2);

@@ -39,6 +39,7 @@ int Count::calNumOfBracFroOptr()
 
 	for (char i : Variables::expression)
 	{
+		//if the character right before a front bracket is not an operator
 		if (!Condition::checkIfCondition(1, i) && Condition::checkIfCondition(5, Variables::expression[Variables::posOfFor + 1]))
 			numOfBracOptr++;
 
@@ -50,20 +51,17 @@ int Count::calNumOfBracFroOptr()
 
 int Count::calNumOfBracBacOptr()
 {
-	int numOfBracOptr{}, j{};
 	Variables::posOfFor = 1;
+	int numOfBracOptr{}, j{};
 
 	for (char i : Variables::expression)
 	{
+		//if the character right after a back bracket is not an operator
 		if (Condition::checkIfCondition(7, Variables::expression[Variables::posOfFor - 1]) && !Condition::checkIfCondition(1, i))
 			numOfBracOptr++;
 
 		//prevent the detection of back brackets being the first element of the string
-		if (j == 0)
-		{
-			Variables::posOfFor--;
-			j++;
-		}
+		j = bacBracFirst(j);
 
 		Variables::posOfFor++;
 	}
@@ -71,14 +69,22 @@ int Count::calNumOfBracBacOptr()
 	return numOfBracOptr;
 }
 
-int Count::calStringSize()
+int Count::bacBracFirst(int j)
+{
+	if (j == 0)
+	{
+		Variables::posOfFor--;
+		j++;
+	}
+
+	return j;
+}
+
+void Count::calStringSize()
 {
 	Variables::resetPOF();
-	int stringSize{ -1 };
+	Variables::stringSize = -1;
 
-	//find the size of the expression
 	for (char i : Variables::expression)
-		stringSize++;
-
-	return stringSize;
+		Variables::stringSize++;
 }

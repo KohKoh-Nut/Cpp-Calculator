@@ -10,11 +10,11 @@ void Orders::doOrders()
 
 	for (Variables::optrDone = 0; Variables::optrDone < Variables::numOfOptr; Variables::optrDone++)
 	{
-		Variables::stringSize = Count::calStringSize();
+		Count::calStringSize();
 
-		Variables::optr_1 = Expression::setAndFind(0, 1, 1, 4);
-		Variables::optr_2 = Expression::setAndFind(Variables::optr_1 - 1, -1, 2, 1);
-		Variables::optr_3 = Expression::setAndFind(Variables::optr_1 + 1, 1, 1, 1);
+		Variables::optr_1 = Expression::find(0, 1, 1, 4);
+		Variables::optr_2 = Expression::find(Variables::optr_1 - 1, -1, 2, 1);
+		Variables::optr_3 = Expression::find(Variables::optr_1 + 1, 1, 1, 1);
 
 		std::string num1, num2;
 		num1 = Store::storeString(Variables::optr_2, Variables::optr_1);

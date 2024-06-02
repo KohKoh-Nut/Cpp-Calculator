@@ -13,6 +13,9 @@
 class Format
 {
 public:
+	//method to set the positions of operator for the formatting of brackets
+	static void setOptr();
+
 	//method to format the expression
 	static void format();
 
