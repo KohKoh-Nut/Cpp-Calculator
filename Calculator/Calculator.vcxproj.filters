@@ -94,6 +94,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="List of Constants.txt" />
+    <Text Include="List_of_Constants.txt" />
   </ItemGroup>
 </Project>

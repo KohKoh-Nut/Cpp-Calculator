@@ -164,7 +164,7 @@
     <ClInclude Include="Variables.h" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="List of Constants.txt" />
+    <Text Include="List_of_Constants.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
