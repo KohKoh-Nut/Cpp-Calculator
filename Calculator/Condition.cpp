@@ -52,7 +52,7 @@ bool Condition::checkIfCondition(int mode, char optr)
 		break;
 
 	case 8:
-		return (optr == 'e');
+		return (optr == 'e' || optr == 'E');
 		break;
 
 	default:
