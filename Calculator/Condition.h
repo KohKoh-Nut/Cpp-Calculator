@@ -21,6 +21,7 @@ public:
 		2: + -			6: ( )
 		3: * / %		7: )
 		4: ^			8: e
+		9: < >
 		optr: the operator to be checked*/
 	static bool checkIfCondition(int mode,char optr);
 };

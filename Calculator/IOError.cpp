@@ -8,7 +8,7 @@ void IOError::input()
 
 void IOError::output()
 {
-	std::cout << "Result: " << Variables::result << '\n';
+	std::cout << "Result: " << std::setprecision(10) << Variables::result << '\n';
 }
 
 void IOError::error()

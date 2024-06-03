@@ -8,6 +8,7 @@
 #include "IOError.h"
 #include "Expression.h"
 #include "Variables.h"
+#include "Constants.h"
 
 //a class to handle the formatting of the expression
 class Format
@@ -16,6 +17,7 @@ public:
 	//method to format the expression
 	static void format();
 
+	static void formConstants(); //format constants
 	static void formFroBrac(); //format front brackets
 	static void formBacBrac(); //format back brackets
 	static void formMultDiv(); //format the signs after * and /
@@ -38,6 +40,12 @@ public:
 		0: multiplication & division
 		1: orders	*/
 	static void forLoopMultDivOrdersFormat(int ifMode, int mode);
+
+	//method for the if repeating
+	static void forLoopConstFormat();
+
+	//method for the if repeating to find back bracket, >
+	static void forLoopConstFormatBacBrac();
 };
 
 #endif

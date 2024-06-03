@@ -2,11 +2,21 @@
 
 void Format::format()
 {
+	formConstants();
 	formFroBrac();
 	formBacBrac();
 	formMultDiv();
 	formCons();
 	formOrders();
+}
+
+void Format::formConstants()
+{
+	int constDone{}, numOfConst{ Count::calNumOfOptr('<') };
+	Count::calStringSize();
+
+	for (; constDone < numOfConst; constDone++)
+		forLoopConstFormat();
 }
 
 void Format::formFroBrac()
@@ -200,5 +210,42 @@ void Format::forLoopMultDivOrdersFormat(int ifMode, int mode)
 			Variables::posOfFor = posOfForA;
 			break;
 		}
+	}
+}
+
+void Format::forLoopConstFormat()
+{
+	for (; Condition::checkForCondition(1);)
+	{
+		//if it's <
+		if (Condition::checkIfCondition(9, Variables::expression[Variables::posOfFor]))
+		{
+			Variables::optr_1 = Variables::posOfFor; //find the front bracket, <
+			int posOfForA{ Variables::posOfFor };
+			Variables::posOfFor++;
+			forLoopConstFormatBacBrac(); //find the bacl bracket, >
+
+			Store::storeConstants(Variables::optr_1, Variables::optr_2);
+			Count::calStringSize();
+			Variables::posOfFor = posOfForA;
+			break;
+		}
+
+		Variables::posOfFor++;
+	}
+}
+
+void Format::forLoopConstFormatBacBrac()
+{
+	for (; Condition::checkForCondition(1);) //find the closing bracket for the constant, >
+	{
+		//if it's >
+		if (Condition::checkIfCondition(9, Variables::expression[Variables::posOfFor]))
+		{
+			Variables::optr_2 = Variables::posOfFor;
+			break;
+		}
+
+		Variables::posOfFor++;
 	}
 }

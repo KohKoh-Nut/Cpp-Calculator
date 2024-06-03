@@ -55,6 +55,10 @@ bool Condition::checkIfCondition(int mode, char optr)
 		return (optr == 'e' || optr == 'E');
 		break;
 
+	case 9:
+		return (optr == '<' || optr == '>');
+		break;
+
 	default:
 		IOError::error();
 		return 0;

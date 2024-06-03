@@ -2,6 +2,7 @@
 #define IOERROR_H
 
 #include "Variables.h"
+#include <iomanip>
 #include <string>
 #include <iostream>
 

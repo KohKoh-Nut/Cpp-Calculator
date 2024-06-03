@@ -1,6 +1,6 @@
 ﻿#include "Constants.h"
 
-const double Constants::presetConstants[42]
+const long double Constants::presetConstants[42]
 {	3.14159265359,		//00: (π)pi
 	1.67262192595e-27,	//01: (mp)proton mass
 	1.67492750056e-2,	//02: (mn)neutron mass 
@@ -44,3 +44,12 @@ const double Constants::presetConstants[42]
 	101325,				//40: (atm)standard atmosphere
 	2.718281828459		//41: (e)Euler's number
 };
+
+std::string Constants::outputConst(int code)
+{
+	//for the precision of small number
+	std::ostringstream constant;
+	constant << std::setprecision(100) << presetConstants[code];
+
+	return constant.str();
+}

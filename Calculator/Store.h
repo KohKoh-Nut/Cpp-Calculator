@@ -3,6 +3,7 @@
 
 #include "Expression.h"
 #include "Variables.h"
+#include "IOError.h"
 #include <iomanip>
 #include <sstream>
 #include <string>
@@ -29,6 +30,9 @@ public:
 		1 = consecutive front brackets
 		2 = consecutive back brackets	*/
 	static void storeExpFormBrac(int optr_bef, int optr_af,int mode);
+
+	//method to store new expression after formatting constants
+	static void storeConstants(int optr_bef, int optr_af);
 
 	//method to store a sub-expression inside the brackets
 	static std::string storeSubExpBrac(int optr_bef, int optr_af);

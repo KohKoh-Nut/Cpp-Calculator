@@ -84,6 +84,37 @@ void Store::storeExpFormBrac(int optr_bef, int optr_af, int mode)
 	Variables::expression = expBrac;
 }
 
+void Store::storeConstants(int optr_bef, int optr_af)
+{
+	std::string constant{};
+
+	//take the number in the brackets
+	for (Variables::posOfFor = optr_bef + 1; Variables::posOfFor < optr_af; Variables::posOfFor++)
+		constant += Variables::expression[Variables::posOfFor];
+
+	int constantValue{ std::stoi(constant) };
+
+	if (!(constantValue >= 0 && constantValue <= 41))
+		IOError::error();
+
+	std::string expConst{};
+
+	for (Variables::posOfFor = 0; Variables::posOfFor < optr_bef; Variables::posOfFor++)
+		expConst += Variables::expression[Variables::posOfFor];
+
+	expConst += '(';
+
+	//process the number and store it in the string
+	expConst += Constants::outputConst(constantValue);
+
+	expConst += ')';
+
+	for (Variables::posOfFor = optr_af + 1; Variables::posOfFor <= Variables::stringSize; Variables::posOfFor++)
+		expConst += Variables::expression[Variables::posOfFor] ;
+
+	Variables::expression = expConst;
+}
+
 std::string Store::storeSubExpBrac(int optr_bef, int optr_af)
 {
 	std::string expBrac;
