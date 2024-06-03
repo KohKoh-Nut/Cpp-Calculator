@@ -38,6 +38,8 @@ It's currently only workable in console, but there're potential uses like combin
 ![image](https://github.com/KohKoh-Nut/Cpp-Calculator/assets/166701768/5a523786-a713-4979-99e5-eb42cdd41cc1)
 * Multiple layers of brackets are acceptable.<br />
 ![image](https://github.com/KohKoh-Nut/Cpp-Calculator/assets/166701768/ab0df31e-aee1-4f3e-b845-f4b9c74710be)
+* **e or E** is recommended for power of 10.<br />
+![image](https://github.com/KohKoh-Nut/Cpp-Calculator/assets/166701768/e6c1085d-efcf-43fc-a0f0-0e248a4affd3)
 
 ## License
 [The Unlicense](https://choosealicense.com/licenses/unlicense/)
