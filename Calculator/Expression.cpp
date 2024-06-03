@@ -11,7 +11,7 @@ void Expression::evaluate()
 	IOError::output();
 }
 
-int Expression::find(int POForigin, int actAfterFor, int forMode, int ifmode)
+int Expression::findOptr(int POForigin, int actAfterFor, int forMode, int ifmode)
 {
 	for (Variables::posOfFor = POForigin; Condition::checkForCondition(forMode); Variables::posOfFor += actAfterFor)
 	{
@@ -39,9 +39,9 @@ int Expression::find(int POForigin, int actAfterFor, int forMode, int ifmode)
 
 void Expression::findMultDivOrders(int ifMode)
 {
-	Variables::optr_1 = Expression::find(0, 1, 1, ifMode); //find the position of operator
-	Variables::optr_2 = Expression::find(Variables::optr_1 - 1, -1, 2, 1); //find the position of operator before
-	Variables::optr_3 = Expression::find(Variables::optr_1 + 1, 1, 1, 1); //find the position of operator after
+	Variables::optr_1 = Expression::findOptr(0, 1, 1, ifMode); //find the position of operator
+	Variables::optr_2 = Expression::findOptr(Variables::optr_1 - 1, -1, 2, 1); //find the position of operator before
+	Variables::optr_3 = Expression::findOptr(Variables::optr_1 + 1, 1, 1, 1); //find the position of operator after
 }
 
 std::string Expression::processOptr(std::string num1, std::string num2)

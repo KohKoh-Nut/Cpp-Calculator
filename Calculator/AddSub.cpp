@@ -63,8 +63,8 @@ void AddSub::optrAddSub(int optr_1a, int optr_2a, int mode)
 	optr_2a = optr_1a;
 
 	//find the position of next operator
-	optr_1a = Expression::find(optr_2a, 1, 1, 2);
-	optr_2a = Expression::find(optr_1a + 1, 1, 1, 2);
+	optr_1a = Expression::findOptr(optr_2a, 1, 1, 2);
+	optr_2a = Expression::findOptr(optr_1a + 1, 1, 1, 2);
 
 	//setting the result back to variables
 	if (mode == 0)

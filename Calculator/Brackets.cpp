@@ -11,8 +11,8 @@ void Brackets::doBrackets()
 
 	//find the position of two brackets
 	Count::calStringSize();
-	Variables::optr_1 = Expression::find(0, 1, 1, 5);
-	Variables::optr_2 = Expression::find(Variables::optr_1 + 1, 1, 1, 6);
+	Variables::optr_1 = Expression::findOptr(0, 1, 1, 5);
+	Variables::optr_2 = Expression::findOptr(Variables::optr_1 + 1, 1, 1, 6);
 
 	//for loop to process all brackets
 	for (; Variables::optrDone < Variables::numOfOptr;)
@@ -22,7 +22,7 @@ void Brackets::doBrackets()
 		{
 			Count::calStringSize();
 			Variables::optr_1 = Variables::optr_2;
-			Variables::optr_2 = Expression::find(Variables::optr_1 + 1, 1, 1, 6);
+			Variables::optr_2 = Expression::findOptr(Variables::optr_1 + 1, 1, 1, 6);
 		}
 
 		//if the two brackets founded were a set of front and back brackets
@@ -51,8 +51,8 @@ void Brackets::doBrackets()
 			if (Variables::optrDone != Variables::numOfOptr)
 			{
 				Count::calStringSize();
-				Variables::optr_1 = Expression::find(0, 1, 1, 5);
-				Variables::optr_2 = Expression::find(Variables::optr_1 + 1, 1, 1, 6);
+				Variables::optr_1 = Expression::findOptr(0, 1, 1, 5);
+				Variables::optr_2 = Expression::findOptr(Variables::optr_1 + 1, 1, 1, 6);
 			}
 		}
 	}

@@ -9,6 +9,9 @@
 #include "Expression.h"
 #include "Variables.h"
 #include "Constants.h"
+#include "Functions.h"
+#include <cctype>
+#include <string>
 
 //a class to handle the formatting of the expression
 class Format
@@ -17,6 +20,7 @@ public:
 	//method to format the expression
 	static void format();
 
+	static void formFunc(); //format functions
 	static void formConstants(); //format constants
 	static void formFroBrac(); //format front brackets
 	static void formBacBrac(); //format back brackets
@@ -46,6 +50,9 @@ public:
 
 	//method for the if repeating to find back bracket, >
 	static void forLoopConstFormatBacBrac();
+
+	//method for the if repeating
+	static std::string forLoopFuncFotmat();
 };
 
 #endif

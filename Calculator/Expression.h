@@ -24,7 +24,7 @@ public:
 	/*	method to find the position of operator
 		POForigin: what to set the posOfFor
 		actAfterFor: the updation of the for loop	*/
-	static int find(int POForigin, int actAfterFor, int forMode, int ifmode);
+	static int findOptr(int POForigin, int actAfterFor, int forMode, int ifmode);
 
 	//method to find the position of multiple operators
 	static void findMultDivOrders(int ifMode);

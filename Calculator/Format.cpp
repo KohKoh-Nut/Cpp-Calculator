@@ -10,6 +10,16 @@ void Format::format()
 	formOrders();
 }
 
+void Format::formFunc()
+{
+	int funcDone{}, numOfFunc{ Count::calNumOfOptr('[') };
+	Count::calStringSize();
+
+	for (; funcDone < numOfFunc; funcDone++)
+		Functions::getFunction(forLoopFuncFotmat());
+
+}
+
 void Format::formConstants()
 {
 	int constDone{}, numOfConst{ Count::calNumOfOptr('<') };
@@ -108,6 +118,7 @@ void Format::formBacBrac()
 		}
 	}
 }
+
 void Format::formMultDiv()
 {
 	int consOptrMultDivDone{}, numOfConsOptrMultDiv{ Count::calNumOfConsOptr(3) };
@@ -203,7 +214,7 @@ void Format::forLoopMultDivOrdersFormat(int ifMode, int mode)
 		{
 			Variables::optr_1 = Variables::posOfFor;
 			Variables::optr_3 = Variables::posOfFor + 1;
-			Variables::optr_2 = Expression::find(Variables::optr_1 - 1, -1, 2, 1);
+			Variables::optr_2 = Expression::findOptr(Variables::optr_1 - 1, -1, 2, 1);
 
 			int posOfForA{ Variables::posOfFor };	
 			Store::storeExpFormConsMultDivOrders(Variables::optr_2, Variables::optr_3, mode);
@@ -248,4 +259,29 @@ void Format::forLoopConstFormatBacBrac()
 
 		Variables::posOfFor++;
 	}
+}
+
+std::string Format::forLoopFuncFotmat()
+{
+	std::string func{};
+
+	for (; Condition::checkForCondition(1);)
+	{
+		if (isalpha(Variables::expression[Variables::posOfFor]))
+		{
+			func += Variables::expression[Variables::posOfFor];
+			continue;
+		}
+
+		if (isalpha(Variables::expression[Variables::posOfFor])
+			&& !isalpha(Variables::expression[Variables::posOfFor + 1]))
+		{
+			func += Variables::expression[Variables::posOfFor];
+			break;
+		}
+
+		Variables::posOfFor++;
+	}
+
+	return func;
 }
