@@ -9,6 +9,7 @@ void IOError::input()
 void IOError::output()
 {
 	std::cout << "Result: " << std::setprecision(10) << Variables::result << '\n';
+	system("pause");
 }
 
 void IOError::error()
