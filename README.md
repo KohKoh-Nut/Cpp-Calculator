@@ -18,8 +18,8 @@ It's currently only workable in console, but there're potential uses like combin
 * Do basic arithmatic operations
 * Deal with orders
 * Process brackets
+* Preset Constants (eg. pi)
 ### To-Do
-* Constants (eg. pi)
 * Mathematical functions (eg. trigonometric functions)
 * Other Modes
 
