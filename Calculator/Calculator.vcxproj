@@ -167,6 +167,7 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="List_of_Constants.txt" />
+    <Text Include="List_of_Functions.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

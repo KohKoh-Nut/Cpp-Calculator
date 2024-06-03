@@ -1,0 +1,16 @@
+Trigonometric functions
+sin:	sine
+cos:	cosine
+tan:	tangent
+asin:	arc sine
+acos:	arc cosine 
+atan:	arc tangent 
+atan2:	arc tangent with two parameters 
+
+Hyperbolic functions
+sinh:   hyperbolic sine 
+cosh:   hyperbolic cosine 
+tanh:   hyperbolic tangent 
+asinh:  area hyperbolic sine 
+acosh:  area hyperbolic cosine 
+atanh:	area hyperbolic tangent 

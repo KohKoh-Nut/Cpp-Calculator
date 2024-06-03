@@ -1,4 +1,4 @@
-access with specific code number
+access with specific code number using angle brackets, eg:<00>
 00: (π) pi									= 3.14159265359
 01: (mp) proton mass						= 1.67262192595e-27 kg
 02: (mn) neutron mass						= 1.67492750056e-2	kg
