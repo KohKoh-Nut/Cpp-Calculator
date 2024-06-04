@@ -4,6 +4,7 @@
 #include "Expression.h"
 #include "Variables.h"
 #include "IOError.h"
+#include "Functions.h"
 #include <iomanip>
 #include <sstream>
 #include <string>
@@ -33,6 +34,9 @@ public:
 
 	//method to store new expression after formatting constants
 	static void storeConstants(int optr_bef, int optr_af);
+
+	//method to store new expression after formatting constants
+	static void storeFunc(int optr_bef, int optr_af);
 
 	//method to store a sub-expression inside the brackets
 	static std::string storeSubExpBrac(int optr_bef, int optr_af);

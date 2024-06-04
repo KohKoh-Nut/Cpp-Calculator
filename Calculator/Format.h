@@ -9,7 +9,6 @@
 #include "Expression.h"
 #include "Variables.h"
 #include "Constants.h"
-#include "Functions.h"
 #include <cctype>
 #include <string>
 
@@ -52,7 +51,10 @@ public:
 	static void forLoopConstFormatBacBrac();
 
 	//method for the if repeating
-	static std::string forLoopFuncFotmat();
+	static void forLoopFuncFotmat();
+
+	//method for the if repeating to find back bracket, ]
+	static void forLoopFuncFormatBacBrac();
 };
 
 #endif

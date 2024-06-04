@@ -1,6 +1,7 @@
 #ifndef FUNCTIONS_H
 #define FUNCTIONS_H
 
+#include "IOError.h"
 #include <cmath>
 #include <string>
 #include <array>
@@ -12,7 +13,7 @@ public:
 	static const char functs[];
 
 	//method to determine which function it is
-	static void getFunction(std::string func);
+	static long double getFunction(std::string func);
 };
 
 #endif

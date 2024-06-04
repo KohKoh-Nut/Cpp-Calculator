@@ -59,6 +59,10 @@ bool Condition::checkIfCondition(int mode, char optr)
 		return (optr == '<' || optr == '>');
 		break;
 
+	case 10:
+		return (optr == '[' || optr == ']');
+		break;
+
 	default:
 		IOError::error();
 		return 0;

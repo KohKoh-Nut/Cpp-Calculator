@@ -115,6 +115,32 @@ void Store::storeConstants(int optr_bef, int optr_af)
 	Variables::expression = expConst;
 }
 
+void Store::storeFunc(int optr_bef, int optr_af)
+{
+	std::string funcBrac{};
+
+	//take the number in the brackets
+	for (Variables::posOfFor = optr_bef + 1; Variables::posOfFor < optr_af; Variables::posOfFor++)
+		funcBrac += Variables::expression[Variables::posOfFor];
+	
+	std::string expFunc{};
+
+	for (Variables::posOfFor = 0; Variables::posOfFor < optr_bef; Variables::posOfFor++)
+		expFunc += Variables::expression[Variables::posOfFor];
+
+	expFunc += '(';
+
+	//process the number and store it in the string
+	expFunc += Functions::getFunction(funcBrac);
+
+	expFunc += ')';
+
+	for (Variables::posOfFor = optr_af + 1; Variables::posOfFor <= Variables::stringSize; Variables::posOfFor++)
+		expFunc += Variables::expression[Variables::posOfFor];
+
+	Variables::expression = expFunc;
+}
+
 std::string Store::storeSubExpBrac(int optr_bef, int optr_af)
 {
 	std::string expBrac;

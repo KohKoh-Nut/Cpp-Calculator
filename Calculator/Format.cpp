@@ -3,6 +3,7 @@
 void Format::format()
 {
 	formConstants();
+	formFunc();
 	formFroBrac();
 	formBacBrac();
 	formMultDiv();
@@ -16,7 +17,7 @@ void Format::formFunc()
 	Count::calStringSize();
 
 	for (; funcDone < numOfFunc; funcDone++)
-		Functions::getFunction(forLoopFuncFotmat());
+		forLoopFuncFotmat();
 
 }
 
@@ -261,27 +262,39 @@ void Format::forLoopConstFormatBacBrac()
 	}
 }
 
-std::string Format::forLoopFuncFotmat()
+void Format::forLoopFuncFotmat()
 {
-	std::string func{};
-
 	for (; Condition::checkForCondition(1);)
 	{
-		if (isalpha(Variables::expression[Variables::posOfFor]))
+		//if it's [
+		if (Condition::checkIfCondition(10, Variables::expression[Variables::posOfFor]))
 		{
-			func += Variables::expression[Variables::posOfFor];
-			continue;
-		}
+			Variables::optr_1 = Variables::posOfFor; //find the front bracket, <
+			int posOfForA{ Variables::posOfFor };
+			Variables::posOfFor++;
+			forLoopFuncFormatBacBrac(); //find the bacl bracket, >
 
-		if (isalpha(Variables::expression[Variables::posOfFor])
-			&& !isalpha(Variables::expression[Variables::posOfFor + 1]))
-		{
-			func += Variables::expression[Variables::posOfFor];
+			Store::storeFunc(Variables::optr_1, Variables::optr_2);
+			Count::calStringSize();
+			Variables::posOfFor = posOfForA;
 			break;
 		}
 
 		Variables::posOfFor++;
 	}
+}
 
-	return func;
+void Format::forLoopFuncFormatBacBrac()
+{
+	for (; Condition::checkForCondition(1);) //find the closing bracket for the constant, ]
+	{
+		//if it's ]
+		if (Condition::checkIfCondition(10, Variables::expression[Variables::posOfFor]))
+		{
+			Variables::optr_2 = Variables::posOfFor;
+			break;
+		}
+
+		Variables::posOfFor++;
+	}
 }

@@ -7,8 +7,16 @@ const char Functions::functs[]
 	"tan"
 };
 
-void Functions::getFunction(std::string func)
+long double Functions::getFunction(std::string func)
 {
-	int funcIndex = functs.findIndex(func);//still working
+	switch (func[0])
+	{
+	case 'a':
+		break;
+
+	default:
+		IOError::error();
+		break;
+	}
 
 }

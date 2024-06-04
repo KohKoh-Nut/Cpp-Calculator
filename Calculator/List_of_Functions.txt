@@ -14,3 +14,10 @@ tanh:   hyperbolic tangent
 asinh:  area hyperbolic sine 
 acosh:  area hyperbolic cosine 
 atanh:	area hyperbolic tangent 
+
+Exponential and logarithmic functions
+exp:    exponential function, e^x
+ln:     natural logarithm
+log2:   binary logarithm
+logb:   floating-point base logarithm
+log10:  common logarithm
