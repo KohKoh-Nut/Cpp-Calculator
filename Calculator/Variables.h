@@ -15,6 +15,8 @@ public:
 
 	static long double resultBrac;//the result evaluated from the sub-expression
 
+	static long double resultFunc;//the result evaluated from the function
+
 	static std::string expression;//the string for expression
 
 	//method to reset all variables except result

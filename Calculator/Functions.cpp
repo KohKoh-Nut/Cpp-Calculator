@@ -1,22 +1,47 @@
 #include "Functions.h"
 
-const char Functions::functs[]
+const std::string Functions::functs[]
 {
 	"sin",
 	"cos",
-	"tan"
+	"tan",
+	"diff",
+	"intg",
+	"logb",
+	"log2",
+	"log10",
+	"ln",
+	"exp",
+	"asin",
+	"asinh",
+	"acos",
+	"acosh",
+	"atan",
+	"atanh",
+	"sinh",
+	"cosh",
+	"tanh"
 };
 
-long double Functions::getFunction(std::string func)
+void Functions::getFunction(std::string func)
 {
-	switch (func[0])
+	int index{};
+
+	do
 	{
-	case 'a':
-		break;
+		if (func == functs[index])
+			evaFunction(index);
+		index++;
+	} while (func != functs[index]);
+}
 
-	default:
-		IOError::error();
-		break;
+void Functions::evaFunction(int sCase)
+{
+	switch (sCase)
+	{
+	case 0:
 	}
-
+	
+	//another function to take in the parameters
+	//special case for integration
 }

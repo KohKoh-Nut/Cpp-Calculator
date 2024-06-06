@@ -5,7 +5,6 @@ tan:	tangent
 asin:	arc sine
 acos:	arc cosine 
 atan:	arc tangent 
-atan2:	arc tangent with two parameters 
 
 Hyperbolic functions
 sinh:   hyperbolic sine 
@@ -21,3 +20,7 @@ ln:     natural logarithm
 log2:   binary logarithm
 logb:   floating-point base logarithm
 log10:  common logarithm
+
+Calculus
+diff:	differentiation
+intg:	integration

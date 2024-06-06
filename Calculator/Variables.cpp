@@ -10,6 +10,7 @@ int Variables::optr_3;
 
 long double Variables::result;
 long double Variables::resultBrac;
+long double Variables::resultFunc;
 
 std::string Variables::expression;
 

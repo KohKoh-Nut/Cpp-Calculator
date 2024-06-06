@@ -2,6 +2,7 @@
 #define FUNCTIONS_H
 
 #include "IOError.h"
+#include "Variables.h"
 #include <cmath>
 #include <string>
 #include <array>
@@ -10,10 +11,14 @@
 class Functions
 {
 public:
-	static const char functs[];
+	//an array for all the functions in alphabetical order
+	static const std::string functs[];
 
 	//method to determine which function it is
-	static long double getFunction(std::string func);
+	static void getFunction(std::string func);
+
+	//evaluate the function and storing it
+	static void evaFunction(int sCase);
 };
 
 #endif
