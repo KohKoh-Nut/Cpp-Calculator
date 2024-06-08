@@ -42,7 +42,7 @@ It's currently only workable in console, but there're potential uses like combin
 ![image](https://github.com/KohKoh-Nut/Cpp-Calculator/assets/166701768/e6c1085d-efcf-43fc-a0f0-0e248a4affd3)
 * Use **angle brackets <>** for preset constants. [List of Constants](List_of_Constants.png)<br />
 ![image](https://github.com/KohKoh-Nut/Cpp-Calculator/assets/166701768/59482109-723a-48e2-9c7a-be51c6138c2f)
-* Use **square brackets []** for functions and **square brackets ()** for the parameters.<br /> [List of Functions](List_of_Functions.png)<br />
+* Use **square brackets []** for functions and **square brackets ()** for the parameters. [List of Functions](List_of_Functions.png)<br />
 ![WindowsTerminal_wGzaobQHyN](https://github.com/KohKoh-Nut/Cpp-Calculator/assets/166701768/0dd8faf0-871e-4539-b50b-4ba425ebb861)
 * Use **comma ,** for degree or radian (d = degree || r = radian)<br />
 ![image](https://github.com/KohKoh-Nut/Cpp-Calculator/assets/166701768/d98aa4d8-40db-41a9-9c4e-37d6be8233a9)
