@@ -3,9 +3,14 @@
 std::string Functions::funcInput;
 std::string Functions::function;
 long double Functions::parameter;
+int Functions::mode;
+char Functions::degRad;
 
 void Functions::evaFunction(std::string func)
 {
+	std::string expressionAf{ Variables::expression };
+	Variables::expression = func;
+	Count::calStringSize();
 	funcInput = func;
 	getFunction();
 	getPara();
@@ -13,12 +18,11 @@ void Functions::evaFunction(std::string func)
 	//for the map of the functions
 	typedef long double (*FnPtr)(long double);
 
+	//all of the functions
 	std::map<std::string, FnPtr> myMap;
 	myMap["sin"] = sin;
 	myMap["cos"] = cos;
 	myMap["tan"] = tan;
-	// myMap["diff"] = 
-	// myMap["intg"] = 
 	myMap["log2"] = log2;
 	myMap["log10"] = log10;
 	myMap["ln"] = log;
@@ -33,18 +37,25 @@ void Functions::evaFunction(std::string func)
 	myMap["cosh"] = cosh;
 	myMap["tanh"] = tanh;
 
-	if (function != "log2" || function != "log10" || function != "ln" || function != "exp")
+	//convert degree to radians
+	if ((function != "log2" || function != "log10" || function != "ln" || function != "exp")
+		&& degRad == 'd')
 		parameter *= (3.141592653589793238462643383279 / 180);
 
 	Variables::resultFunc = myMap[function](parameter);
+	Variables::expression = expressionAf;
 }
 
 void Functions::getFunction()
 {
 	for (Variables::posOfFor = 0; Variables::posOfFor <= Variables::stringSize; Variables::posOfFor++)
 	{
-		if (funcInput[Variables::posOfFor] == '(')
+		if (funcInput[Variables::posOfFor] == ',')
+		{
+			Variables::posOfFor++;
+			degRad = funcInput[Variables::posOfFor];
 			break;
+		}
 
 		function += funcInput[Variables::posOfFor];
 	}
@@ -52,15 +63,32 @@ void Functions::getFunction()
 
 void Functions::getPara()
 {
-	std::string para;
+	std::string para; //the string to store the parameter
+	int froBra{ Variables::posOfFor }; //the position of front bracket
 
+	//get the position of back bracket
 	for (Variables::posOfFor++; Variables::posOfFor <= Variables::stringSize; Variables::posOfFor++)
 	{
-		if (funcInput[Variables::posOfFor] == ')')
+		if (funcInput[Variables::posOfFor] == funcInput[Variables::stringSize] + 1)
 			break;
 		
 		para += funcInput[Variables::posOfFor];
 	}
 
-	parameter = std::stold(para);
+	int bacBra{ Variables::posOfFor };
+
+	std::string expressionAf{ Variables::expression };
+	int stringSizeAf{ Variables::stringSize };
+	Variables::expression = para;
+
+	//process the parameter
+	Brackets::doBrackets();
+	Orders::doOrders();
+	MultDiv::multDiv();
+	AddSub::doAddSub(1);
+
+	parameter = Variables::resultBrac;
+
+	//store the parameter
+	Variables::expression = Store::storeSubExpBracResult(froBra + 1, bacBra - 1, expressionAf, stringSizeAf);
 }

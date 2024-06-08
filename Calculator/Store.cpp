@@ -118,6 +118,7 @@ void Store::storeConstants(int optr_bef, int optr_af)
 void Store::storeFunc(int optr_bef, int optr_af)
 {
 	std::string funcBrac{};
+	int stringSizeAf{ Variables::stringSize };
 
 	//take the number in the brackets
 	for (Variables::posOfFor = optr_bef + 1; Variables::posOfFor < optr_af; Variables::posOfFor++)
@@ -128,7 +129,8 @@ void Store::storeFunc(int optr_bef, int optr_af)
 	for (Variables::posOfFor = 0; Variables::posOfFor < optr_bef; Variables::posOfFor++)
 		expFunc += Variables::expression[Variables::posOfFor];
 
-	expFunc += '(';
+	if (Functions::mode == 0)
+		expFunc += '(';
 
 	//evaluate the function
 	Functions::evaFunction(funcBrac);
@@ -140,9 +142,12 @@ void Store::storeFunc(int optr_bef, int optr_af)
 	//process the number and store it in the string
 	expFunc += result.str();
 
-	expFunc += ')';
+	if (Functions::mode == 0)
+		expFunc += ')';
 
-	for (Variables::posOfFor = optr_af + 1; Variables::posOfFor <= Variables::stringSize; Variables::posOfFor++)
+	Functions::mode = 0;
+
+	for (Variables::posOfFor = optr_af + 1; Variables::posOfFor <= stringSizeAf; Variables::posOfFor++)
 		expFunc += Variables::expression[Variables::posOfFor];
 
 	Variables::expression = expFunc;
@@ -169,6 +174,13 @@ std::string Store::storeSubExpBracResult(int optr_bef, int optr_af, std::string 
 	
 	//for the precision of small number
 	std::ostringstream result;
+	int precision{};
+
+	if (Functions::mode == 0)
+		precision = 100;
+	else
+		precision = 20;
+
 	result << std::setprecision(100) << Variables::resultBrac;
 
 	//put in the result of the sub-expression

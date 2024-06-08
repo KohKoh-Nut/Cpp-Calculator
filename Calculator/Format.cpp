@@ -263,13 +263,20 @@ void Format::forLoopConstFormatBacBrac()
 
 int Format::forLoopFuncFormat(int funcDone)
 {
+	Variables::reset();
 	Count::calStringSize();
 	Variables::optr_1 = Expression::findOptr(Variables::optr_1, 1, 1, 11);
 	Variables::optr_2 = Expression::findOptr(Variables::optr_1 + 1, 1, 1, 10);
 
+	//if both of them are [
 	if (Condition::checkIfCondition(11, Variables::expression[Variables::optr_1]) && Condition::checkIfCondition(11, Variables::expression[Variables::optr_2]))
+	{
+		Variables::optr_1 = Variables::optr_2;
+		Functions::mode = 1;
 		return funcDone;
+	}
 
+	//store the new expression
 	Store::storeFunc(Variables::optr_1, Variables::optr_2);
 
 	return (funcDone + 1);

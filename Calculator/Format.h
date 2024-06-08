@@ -9,6 +9,7 @@
 #include "Expression.h"
 #include "Variables.h"
 #include "Constants.h"
+#include "Functions.h"
 #include <cctype>
 #include <string>
 

@@ -19,7 +19,3 @@ exp:    exponential function, e^x
 ln:     natural logarithm
 log2:   binary logarithm
 log10:  common logarithm
-
-Calculus
-diff:	differentiation
-intg:	integration

@@ -3,6 +3,8 @@
 
 #include "IOError.h"
 #include "Variables.h"
+#include "Brackets.h"
+#include "Count.h"
 #include <map>
 #include <cmath>
 #include <string>
@@ -16,6 +18,9 @@ public:
 	static std::string funcInput; //the whole function which the user input
 	static std::string function; //the function needed to be called
 	static long double parameter; //the parameters of the functions
+	static int mode; //decide whether it is a function inside a function
+	static char degRad; //determine if it's degree or radian
+	static int pi; //determine whether it's pi
 
 	//method to evaluate the function
 	static void evaFunction(std::string func);

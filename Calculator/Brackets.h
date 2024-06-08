@@ -16,6 +16,12 @@ class Brackets
 public:
 	//method to process brackets
 	static void doBrackets();
+
+	//method to process incomplete set of brackets
+	static void incomSet();
+
+	//method to process complete set of brackets
+	static void comSet();
 };
 
 #endif
