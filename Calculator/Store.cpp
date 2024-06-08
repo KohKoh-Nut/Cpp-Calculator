@@ -130,12 +130,12 @@ void Store::storeFunc(int optr_bef, int optr_af)
 
 	expFunc += '(';
 
+	//evaluate the function
+	Functions::evaFunction(funcBrac);
+
 	//for the precision of small number
 	std::ostringstream result;
-	Functions::getFunction(funcBrac);
 	result << std::setprecision(100) << Variables::resultFunc;
-
-	//put in the result of the sub-expression
 
 	//process the number and store it in the string
 	expFunc += result.str();

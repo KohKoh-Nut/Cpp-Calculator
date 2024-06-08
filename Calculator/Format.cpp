@@ -14,10 +14,9 @@ void Format::format()
 void Format::formFunc()
 {
 	int funcDone{}, numOfFunc{ Count::calNumOfOptr('[') };
-	Count::calStringSize();
 
-	for (; funcDone < numOfFunc; funcDone++)
-		forLoopFuncFotmat();
+	for (; funcDone < numOfFunc;)
+		funcDone = forLoopFuncFormat(funcDone);
 
 }
 
@@ -262,39 +261,16 @@ void Format::forLoopConstFormatBacBrac()
 	}
 }
 
-void Format::forLoopFuncFotmat()
+int Format::forLoopFuncFormat(int funcDone)
 {
-	for (; Condition::checkForCondition(1);)
-	{
-		//if it's [
-		if (Condition::checkIfCondition(10, Variables::expression[Variables::posOfFor]))
-		{
-			Variables::optr_1 = Variables::posOfFor; //find the front bracket, <
-			int posOfForA{ Variables::posOfFor };
-			Variables::posOfFor++;
-			forLoopFuncFormatBacBrac(); //find the bacl bracket, >
+	Count::calStringSize();
+	Variables::optr_1 = Expression::findOptr(Variables::optr_1, 1, 1, 11);
+	Variables::optr_2 = Expression::findOptr(Variables::optr_1 + 1, 1, 1, 10);
 
-			Store::storeFunc(Variables::optr_1, Variables::optr_2);
-			Count::calStringSize();
-			Variables::posOfFor = posOfForA;
-			break;
-		}
+	if (Condition::checkIfCondition(11, Variables::expression[Variables::optr_1]) && Condition::checkIfCondition(11, Variables::expression[Variables::optr_2]))
+		return funcDone;
 
-		Variables::posOfFor++;
-	}
-}
+	Store::storeFunc(Variables::optr_1, Variables::optr_2);
 
-void Format::forLoopFuncFormatBacBrac()
-{
-	for (; Condition::checkForCondition(1);) //find the closing bracket for the constant, ]
-	{
-		//if it's ]
-		if (Condition::checkIfCondition(10, Variables::expression[Variables::posOfFor]))
-		{
-			Variables::optr_2 = Variables::posOfFor;
-			break;
-		}
-
-		Variables::posOfFor++;
-	}
+	return (funcDone + 1);
 }

@@ -63,6 +63,14 @@ bool Condition::checkIfCondition(int mode, char optr)
 		return (optr == '[' || optr == ']');
 		break;
 
+	case 11:
+		return (optr == '[');
+		break;
+
+	case 12:
+		return (optr == ']');
+		break;
+
 	default:
 		IOError::error();
 		return 0;

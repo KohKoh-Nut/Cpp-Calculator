@@ -51,10 +51,7 @@ public:
 	static void forLoopConstFormatBacBrac();
 
 	//method for the if repeating
-	static void forLoopFuncFotmat();
-
-	//method for the if repeating to find back bracket, ]
-	static void forLoopFuncFormatBacBrac();
+	static int forLoopFuncFormat(int funcDone);
 };
 
 #endif

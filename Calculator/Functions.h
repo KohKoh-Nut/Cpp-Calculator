@@ -3,22 +3,28 @@
 
 #include "IOError.h"
 #include "Variables.h"
+#include <map>
 #include <cmath>
 #include <string>
-#include <array>
+#include <iostream>
 
 //a class to take in mathematical functions
 class Functions
 {
 public:
-	//an array for all the functions in alphabetical order
-	static const std::string functs[];
 
-	//method to determine which function it is
-	static void getFunction(std::string func);
+	static std::string funcInput; //the whole function which the user input
+	static std::string function; //the function needed to be called
+	static long double parameter; //the parameters of the functions
 
-	//evaluate the function and storing it
-	static void evaFunction(int sCase);
+	//method to evaluate the function
+	static void evaFunction(std::string func);
+
+	//method to get which function it is
+	static void getFunction();
+
+	//method to get the parameters
+	static void getPara();
 };
 
 #endif

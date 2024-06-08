@@ -22,7 +22,7 @@ int Expression::findOptr(int POForigin, int actAfterFor, int forMode, int ifmode
 			continue;
 
 		//detecting the last character of the expression
-		if (Variables::posOfFor == Variables::stringSize && ifmode != 6)
+		if (Variables::posOfFor == Variables::stringSize && ifmode != 6 && ifmode != 10)
 			return Variables::stringSize + 1;
 
 		//detecting the first character of the expression for addition and subtraction
