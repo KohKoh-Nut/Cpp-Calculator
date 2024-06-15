@@ -12,7 +12,7 @@ public:
 	static std::string logTokens();
 
 	//method to output the result
-	static void logResult(int value);
+	static void logResult(double value);
 };
 
 #endif

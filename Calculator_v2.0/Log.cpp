@@ -10,7 +10,7 @@ std::string Log::logTokens()
 	return tokens;
 }
 
-void Log::logResult(int value)
+void Log::logResult(double value)
 {
 	std::cout << "The result is: " << value << std::endl;
 }

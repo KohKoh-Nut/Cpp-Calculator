@@ -1,6 +1,6 @@
 #include "Evaluate.h"
 
-int Evaluate::applyOptr(int a, int b, char op)
+double Evaluate::applyOptr(double a, double b, char op)
 {
 	switch (op) {
 	case '+': return a + b;
@@ -21,10 +21,10 @@ int Evaluate::precedence(char op)
 
 void Evaluate::calPush()
 {
-	int num2 = values.top();
+	int num2 = static_cast <int> (values.top());
 	values.pop();
 
-	int num1 = values.top();
+	int num1 = static_cast <int> (values.top());
 	values.pop();
 
 	char op = optr.top();
@@ -34,9 +34,28 @@ void Evaluate::calPush()
 	values.push(Evaluate::applyOptr(num1, num2, op));
 }
 
-Evaluate::Evaluate(std::string tokens)
+int Evaluate::digits(int& i)
+{
+	int num{};
+
+	//numbers with multiple digits
+	while (i < tokens.length() &&
+		isdigit(tokens[i]))
+	{
+		num = (num * 10) + static_cast <int> ((tokens[i] - '0'));
+		i++;
+	}
+
+	//to correct the offset
+	i--;
+
+	return num;
+}
+
+Evaluate::Evaluate(std::string token)
 {
 	int i{}; //number of tokens processed
+	tokens = token;
 
 	for (i = 0; i < tokens.length(); i++)
 	{
@@ -50,21 +69,21 @@ Evaluate::Evaluate(std::string tokens)
 
 		//push numbers to stack
 		else if (isdigit(tokens[i]))
+			values.push(digits(i));
+
+		else if (tokens[i] == '.')
 		{
-			int num{};
+			std::ostringstream num1;
+			num1 << std::setprecision(10) << static_cast <int> (values.top());
+			values.pop();
 
-			//numbers with multiple digits
-			while (i < tokens.length() &&
-					isdigit(tokens[i]))
-			{
-				num = (num * 10) + static_cast <int> ((tokens[i] - '0'));
-				i++;
-			}
+			i++;
 
-			values.push(num);
+			std::ostringstream num2;
+			num2 << std::setprecision(10) << digits(i);
+			std::string num = num1.str() + '.' + num2.str();
 
-			//to correct the offset
-			i--;
+			values.push(stod(num));
 		}
 
 		//closing brace encountered, solve the sub-expression
@@ -80,6 +99,9 @@ Evaluate::Evaluate(std::string tokens)
 		//operators encountered
 		else
 		{
+			if (values.empty())
+				values.push(0);
+
 			while (!optr.empty() && precedence(optr.top())
 				>= precedence(tokens[i]))
 				calPush();
