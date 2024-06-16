@@ -54,6 +54,7 @@ int Evaluate::digits(double& num, int& i)
 		//converting into decimal
 		num = num + (tokens[i] - '0') * pow(10, -digits);
 
+		//only count the digits before period
 		if (!period)
 			digitsAfDec++;
 
@@ -68,6 +69,8 @@ Evaluate::Evaluate(std::string token)
 {
 	int i{}; //number of tokens processed
 	tokens = token;
+
+	Format form(tokens);
 
 	for (i = 0; i < tokens.length(); i++)
 	{

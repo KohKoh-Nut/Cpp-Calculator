@@ -2,6 +2,7 @@
 #define EVALUATE_H
 
 #include "Log.h"
+#include "Format.h"
 #include <stack>
 #include <string>
 #include <iostream>
