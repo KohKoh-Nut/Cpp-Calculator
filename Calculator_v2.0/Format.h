@@ -7,10 +7,7 @@
 class Format
 {
 private:
-	std::queue <char> exp;
-
-public:
-
+	std::queue <char> exp; //a queue to store the expression
 
 public:
 	//constructor that formats the expressions

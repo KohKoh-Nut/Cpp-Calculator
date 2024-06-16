@@ -70,7 +70,7 @@ Evaluate::Evaluate(std::string token)
 	int i{}; //number of tokens processed
 	tokens = token;
 
-	Format form(tokens);
+	//Format form(tokens);
 
 	for (i = 0; i < tokens.length(); i++)
 	{

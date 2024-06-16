@@ -6,18 +6,30 @@ Format::Format(std::string& tokens)
 
 	for (int i{}; i < length; i++)
 	{
-		if ((tokens[i] == '+' && tokens[i + 1] == '-') ||
-			(tokens[i] == '-' && tokens[i + 1] == '+'))
+		while (i)
 		{
-			exp.push('-');
-			i++;
-		}
-		else
-		{
-			exp.push('+');
-			i++;
+			//check for consequtive '+' and '-'
+			if ((tokens[i] == '+' && tokens[i + 1] == '-') ||
+				(tokens[i] == '-' && tokens[i + 1] == '+'))
+			{
+				exp.push('-');
+				i++;
+			}
+			else
+			{
+				exp.push('+');
+				i++;
+			}
 		}
 
 		exp.push(tokens[i]);
+	}
+
+	tokens.clear();
+
+	while (!exp.empty())
+	{
+		tokens += exp.front();
+		exp.pop();
 	}
 }
