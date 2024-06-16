@@ -4,8 +4,6 @@
 #include "Log.h"
 #include <stack>
 #include <string>
-#include <iomanip>
-#include <sstream>
 #include <iostream>
 
 class Evaluate
@@ -25,8 +23,8 @@ public:
 	//method to calculate and push
 	void calPush();
 
-	//take in and push the numbers
-	int digits(int& i);
+	//method to for taking numbers
+	int digits(double& num, int& i);
 
 public:
 	//constructor that processes the expressions

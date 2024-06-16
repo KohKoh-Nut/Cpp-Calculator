@@ -21,10 +21,10 @@ int Evaluate::precedence(char op)
 
 void Evaluate::calPush()
 {
-	int num2 = static_cast <int> (values.top());
+	double num2 = static_cast <double> (values.top());
 	values.pop();
 
-	int num1 = static_cast <int> (values.top());
+	double num1 = static_cast <double> (values.top());
 	values.pop();
 
 	char op = optr.top();
@@ -34,22 +34,34 @@ void Evaluate::calPush()
 	values.push(Evaluate::applyOptr(num1, num2, op));
 }
 
-int Evaluate::digits(int& i)
+int Evaluate::digits(double& num, int& i)
 {
-	int num{};
+	int digits{}, digitsAfDec{}; //the number of digits
+	bool period{};
 
 	//numbers with multiple digits
 	while (i < tokens.length() &&
-		isdigit(tokens[i]))
+		(isdigit(tokens[i]) ||
+			tokens[i] == '.'))
 	{
-		num = (num * 10) + static_cast <int> ((tokens[i] - '0'));
+		if (tokens[i] == '.')
+		{
+			period = true;
+			i++;
+			continue;
+		}
+
+		//converting into decimal
+		num = num + (tokens[i] - '0') * pow(10, -digits);
+
+		if (!period)
+			digitsAfDec++;
+
+		digits++;
 		i++;
 	}
 
-	//to correct the offset
-	i--;
-
-	return num;
+	return digitsAfDec;
 }
 
 Evaluate::Evaluate(std::string token)
@@ -68,22 +80,16 @@ Evaluate::Evaluate(std::string token)
 			optr.push(tokens[i]);
 
 		//push numbers to stack
-		else if (isdigit(tokens[i]))
-			values.push(digits(i));
-
-		else if (tokens[i] == '.')
+		else if (isdigit(tokens[i]) || tokens[i] == '.')
 		{
-			std::ostringstream num1;
-			num1 << std::setprecision(10) << static_cast <int> (values.top());
-			values.pop();
+			double num{};
 
-			i++;
+			//converting back
+			num *= pow(10, (digits(num, i) - 1));
 
-			std::ostringstream num2;
-			num2 << std::setprecision(10) << digits(i);
-			std::string num = num1.str() + '.' + num2.str();
-
-			values.push(stod(num));
+			//to correct the offset
+			i--;
+			values.push(num);
 		}
 
 		//closing brace encountered, solve the sub-expression

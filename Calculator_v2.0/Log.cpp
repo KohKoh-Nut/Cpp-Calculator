@@ -12,5 +12,6 @@ std::string Log::logTokens()
 
 void Log::logResult(double value)
 {
-	std::cout << "The result is: " << value << std::endl;
+	std::cout << "The result is: " << std::setprecision(16) 
+		<< value << std::endl;
 }

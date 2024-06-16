@@ -2,6 +2,7 @@
 #define LOG_H
 
 #include <string>
+#include <iomanip>
 #include <iostream>
 
 //a class to output

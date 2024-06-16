@@ -1,6 +1,7 @@
 #include "Evaluate.h"
 #include "Log.h"
 #include <Windows.h>
+#include <iostream>
 
 int main()
 {
@@ -13,6 +14,8 @@ int main()
 		//detect if escape key is pressed
 		if (GetAsyncKeyState(27))
 			exit(0);
+
+		std::cout << std::endl;
 
 		Sleep(100);
 	}
