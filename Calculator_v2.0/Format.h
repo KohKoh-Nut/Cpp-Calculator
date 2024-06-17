@@ -2,12 +2,12 @@
 #define FORMAT_H
 
 #include <string>
-#include <queue>
+#include <deque>
 
 class Format
 {
 private:
-	std::queue <char> exp; //a queue to store the expression
+	std::deque <char> exp; //a queue to store the expression
 
 public:
 	//constructor that formats the expressions
